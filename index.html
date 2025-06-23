@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name]'s Portfolio</title>
+    <!-- Nunito Sans font import -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configure Tailwind CSS to extend theme with custom fonts and animations -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito Sans', 'sans-serif'],
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            from: { opacity: 0 },
+                            to: { opacity: 1 },
+                        },
+                        fadeInUp: {
+                            from: { opacity: 0, transform: 'translateY(20px)' },
+                            to: { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        slideInLeft: {
+                            from: { opacity: 0, transform: 'translateX(-50px)' },
+                            to: { opacity: 1, transform: 'translateX(0)' },
+                        },
+                        zoomIn: {
+                            from: { opacity: 0, transform: 'scale(0.8)' },
+                            to: { opacity: 1, transform: 'scale(1)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
+                        'zoom-in': 'zoomIn 0.8s ease-out forwards',
+                        'blob': 'blob 7s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)',
+                    },
+                }
+            },
+        }
+    </script>
+
+    <style>
+        /* Global styles for Nunito Sans font */
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+        }
+
+        /* Custom prose styles for blog content */
+        .prose :where(h1):not(:where([class~="not-prose"] *)) {
+            background: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            --tw-gradient-from: #52525b; /* zinc-700 */
+            --tw-gradient-to: #6b7280; /* gray-500 */
+        }
+        .prose :where(h2):not(:where([class~="not-prose"] *)) {
+            background: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            --tw-gradient-from: #3f3f46; /* zinc-800 */
+            --tw-gradient-to: #71717a; /* zinc-600 */
+        }
+        .prose :where(h3):not(:where([class~="not-prose"] *)) {
+            color: #52525b; /* zinc-700 */
+        }
+        .prose pre {
+            background-color: #f3f4f6; /* gray-100 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .prose code {
+            background-color: #e5e7eb; /* gray-200 */
+            border-radius: 0.25rem;
+            padding: 0.2em 0.4em;
+            font-size: 0.875em;
+            color: #1f2937; /* gray-900 */
+        }
+        .prose pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Animation delays for staggered effects */
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+    </style>
+</head>
+<body class="font-['Nunito_Sans'] bg-zinc-50 text-zinc-900 min-h-screen flex flex-col">
+    <div id="root" class="min-h-screen flex flex-col"></div>
+
+    <!-- React and ReactDOM CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX transformation in browser (for development/simple hosting) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // Your React application code goes here
+        // All components (Navbar, HomePage, AboutPage, etc.) should be defined within this script block.
+
+        const { useState, useEffect, useRef } = React;
+
+        // Mock Data for Projects and Blog Posts
+        const portfolioData = {
+          projects: [
+            {
+              id: 'e-commerce-platform',
+              title: 'E-commerce Platform',
+              description: 'A full-stack e-commerce solution with user authentication, product listings, shopping cart functionality, and secure payment processing.',
+              technologies: ['React.js', 'Django REST Framework', 'PostgreSQL', 'Tailwind CSS', 'Stripe API'],
+              features: [
+                'User authentication (registration, login, logout)',
+                'Product browsing and search',
+                'Shopping cart management',
+                'Secure checkout with Stripe integration',
+                'Admin panel for product and order management',
+                'Responsive design for all devices'
+              ],
+              challenges: 'Managing complex state for the shopping cart and integrating a third-party payment gateway.',
+              learnings: 'Gained deep understanding of asynchronous data handling and API security best practices.',
+              imageUrl: 'https://placehold.co/600x400/87CEEB/FFFFFF?text=E-commerce+Platform',
+              liveLink: '#',
+              githubLink: '#',
+            },
+            {
+              id: 'task-management-app',
+              title: 'Task Management App',
+              description: 'A Kanban-style task management application designed for individual productivity, allowing users to organize tasks into different stages.',
+              technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Styled Components'],
+              features: [
+                'Drag-and-drop task reordering',
+                'Task creation, editing, and deletion',
+                'Filtering and sorting tasks',
+                'User-friendly interface',
+                'Real-time updates (via WebSockets - planned for future)'
+              ],
+              challenges: 'Implementing smooth drag-and-drop functionality and ensuring data persistence across sessions.',
+              learnings: 'Explored React context API for global state management and deepened understanding of RESTful API design.',
+              imageUrl: 'https://placehold.co/600x400/98FB98/FFFFFF?text=Task+Manager',
+              liveLink: '#',
+              githubLink: '#',
+            },
+            {
+              id: 'data-visualization-dashboard',
+              title: 'Data Visualization Dashboard',
+              description: 'An interactive dashboard displaying key metrics and trends using various chart types, built for easy data exploration.',
+              technologies: ['React.js', 'D3.js', 'Python (Flask)', 'Pandas'],
+              features: [
+                'Dynamic chart generation (bar, line, pie charts)',
+                'Filterable data views',
+                'Real-time data fetching simulation',
+                'Export data functionality',
+                'Responsive and interactive visualizations'
+              ],
+              challenges: 'Integrating D3.js with React\'s component lifecycle and optimizing performance for large datasets.',
+              learnings: 'Mastered data manipulation with Pandas and created custom, reusable D3.js chart components.',
+              imageUrl: 'https://placehold.co/600x400/FFD700/FFFFFF?text=Data+Dashboard',
+              liveLink: '#',
+              githubLink: '#',
+            },
+          ],
+          blogPosts: [
+            {
+              id: 'optimizing-react-performance',
+              title: 'Optimizing React Performance with Hooks',
+              date: 'June 20, 2025',
+              summary: 'A deep dive into `useMemo`, `useCallback`, and `React.memo` for boosting your React application\'s speed and efficiency.',
+              content: `
+                <p>Optimizing React applications is crucial for providing a smooth user experience. While React is generally fast, inefficient renders can lead to performance bottlenecks, especially in complex applications. This post explores three key React hooks and HOCs that help in performance optimization: <code>useMemo</code>, <code>useCallback</code>, and <code>React.memo</code>.</p>
+                
+                <h2>useMemo: Memoizing Expensive Computations</h2>
+                <p>The <code>useMemo</code> hook allows you to memoize expensive computations. This means React will skip re-executing the calculation if its dependencies haven't changed. This is particularly useful for calculations that take a significant amount of time or resources.</p>
+                <pre><code class="language-javascript">
+import React, { useMemo } from 'react';
+
+function ProductList({ products }) {
+  const totalPrice = useMemo(() => {
+    console.log('Calculating total price...');
+    return products.reduce((acc, product) => acc + product.price, 0);
+  }, [products]); // Recalculate only if 'products' array changes
+
+  return (
+    &lt;div&gt;
+      {/* Render products */}
+      &lt;p&gt;Total Price: &#36;&#123;totalPrice&#125;&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+                </code></pre>
+
+                <h2>useCallback: Memoizing Functions</h2>
+                <p>Similar to <code>useMemo</code>, <code>useCallback</code> memoizes functions. This is important when passing callback functions to child components that rely on referential equality to prevent unnecessary re-renders (e.g., components wrapped with <code>React.memo</code>).</p>
+                <pre><code class="language-javascript">
+import React, { useState, useCallback, memo } from 'react';
+
+const Button = memo(({ onClick, children }) => {
+  console.log('Button rendered:', children);
+  return &lt;button onClick=&#123;onClick&#125;&gt;&#123;children&#125;&lt;/button&gt;;
+});
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+  const handleClick = useCallback(() => {
+    setCount(prevCount => prevCount + 1);
+  }, []); // Empty dependency array means this function never changes
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: &#123;count&#125;&lt;/p&gt;
+      &lt;Button onClick=&#123;handleClick&#125;&gt;Increment&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+                </code></pre>
+
+                <h2>React.memo: Memoizing Components</h2>
+                <p><code>React.memo</code> is a higher-order component (HOC) that memoizes a functional component. It prevents a component from re-rendering if its props haven't changed. This is particularly useful for "presentational" components that don't manage their own state.</p>
+                <pre><code class="language-javascript">
+import React, { memo } from 'react';
+
+const MyPureComponent = memo(({ data }) => {
+  console.log('MyPureComponent rendered');
+  return &lt;div&gt;&#123;data.name&#125;&lt;/div&gt;;
+});
+
+// In parent:
+// &lt;MyPureComponent data=&#123;&#123; name: 'Example' &#125;&#123; /&gt;
+                </code></pre>
+                <p>By effectively using these tools, you can significantly improve the performance and responsiveness of your React applications, leading to a much better user experience.</p>
+              `,
+            },
+            {
+              id: 'understanding-system-design-basics',
+              title: 'Understanding System Design Basics',
+              date: 'June 10, 2025',
+              summary: 'An introduction to fundamental concepts in system design, focusing on scalability, availability, and reliability.',
+              content: `
+                <p>System design interviews are a common part of the hiring process for senior software engineering roles. They test your ability to design complex systems that are scalable, reliable, and maintainable. This post covers some fundamental concepts to get you started.</p>
+
+                <h2>Scalability</h2>
+                <p>Scalability refers to a system's ability to handle an increasing amount of work or its potential to be enlarged to accommodate that growth. There are two main types:</p>
+                <ul>
+                  <li><strong>Vertical Scaling (Scaling Up):</strong> Adding more resources (CPU, RAM) to an existing server. Simple but has limits.</li>
+                  <li><strong>Horizontal Scaling (Scaling Out):</strong> Adding more servers to distribute the load. More complex but offers greater flexibility and fault tolerance.</li>
+                </ul>
+
+                <h2>Availability</h2>
+                <p>Availability refers to the proportion of time a system is functional and accessible. High availability is crucial for user satisfaction and business continuity. Key concepts include:</p>
+                <ul>
+                  <li><strong>Redundancy:</strong> Duplicating components to ensure that if one fails, another can take over.</li>
+                  <li><strong>Failover:</strong> The process of automatically switching to a redundant or standby system upon the failure or abnormal termination of the previously active system.</li>
+                  <li><strong>Load Balancing:</strong> Distributing incoming network traffic across multiple servers to ensure no single server is overloaded.</li>
+                </ul>
+
+                <h2>Reliability</h2>
+                <p>Reliability means the system performs its required functions accurately and consistently under specified conditions for a specified period of time. This involves:</p>
+                <ul>
+                  <li><strong>Fault Tolerance:</strong> The ability of a system to continue operating without interruption when one or more of its components fail.</li>
+                  <li><strong>Data Consistency:</strong> Ensuring that data remains accurate and consistent across distributed systems, especially during concurrent operations.</li>
+                  <li><strong>Error Handling and Monitoring:</strong> Robust mechanisms to detect, report, and recover from errors, along with comprehensive monitoring to observe system health.</li>
+                </ul>
+
+                <p>These are just the tip of the iceberg in system design, but understanding these core principles is essential before diving into more complex topics like distributed databases, message queues, and caching strategies.</p>
+              `,
+            },
+          ],
+        };
+
+        // --- Utility Components (Inline for Self-Contained App) ---
+
+        // Icon components (using inline SVG for simplicity and self-containment)
+        const MenuIcon = (props) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+          </svg>
+        );
+
+        const XIcon = (props) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        );
+
+        const GitHubIcon = (props) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.3-2.2 4.3-4.9V8c0-1.2-.5-2.2-1.2-3.1C18.9 3.8 19 2.5 18.5 1c0 0-1 0-3 1.2c-1.1-.3-2.3-.5-3.5-.5c-1.2 0-2.4.2-3.5.5C5 1 4 1 4 1c-.5 1.5-.4 2.8-.2 3.8c-.7.9-1.2 2-1.2 3.1v3.4c0 2.7.8 4.9 4.3 4.9c-.9.7-1.7 2-1.7 3.2v4"></path>
+            <path d="M9 18c-2.4.8-4.4-1.6-4.4-1.6"></path>
+          </svg>
+        );
+
+        const LinkedinIcon = (props) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect width="4" height="12" x="2" y="9"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        );
+
+        // --- Component Definitions ---
+
+        function Navbar({ onNavigate }) {
+          const [isOpen, setIsOpen] = useState(false);
+
+          const navItems = [
+            { name: 'Home', path: 'home' },
+            { name: 'About', path: 'about' },
+            { name: 'Projects', path: 'projects' },
+            { name: 'Blog', path: 'blog' },
+            { name: 'Resume', path: 'resume' },
+            { name: 'Contact', path: 'contact' },
+          ];
+
+          return (
+            <nav className="bg-zinc-800 text-white p-4 shadow-lg sticky top-0 z-50 rounded-b-lg">
+              <div className="container mx-auto flex justify-between items-center">
+                <div className="text-2xl font-bold cursor-pointer transition-transform duration-300 hover:scale-105" onClick={() => onNavigate('home')}>
+                  [Your Name]
+                </div>
+                <div className="hidden md:flex space-x-6">
+                  {navItems.map(item => (
+                    <a
+                      key={item.path}
+                      className="relative text-lg font-medium hover:text-zinc-200 transition-all duration-300 group"
+                      onClick={() => onNavigate(item.path)}
+                    >
+                      {item.name}
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                  ))}
+                </div>
+                <div className="md:hidden">
+                  <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+                    {isOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+                  </button>
+                </div>
+              </div>
+
+              {isOpen && (
+                <div className="md:hidden mt-4 bg-zinc-700 rounded-lg p-4 mx-4 shadow-xl">
+                  <div className="flex flex-col space-y-3">
+                    {navItems.map(item => (
+                      <a
+                        key={item.path}
+                        className="block text-lg font-medium py-2 px-4 rounded-md hover:bg-zinc-600 transition-colors duration-200"
+                        onClick={() => { onNavigate(item.path); setIsOpen(false); }}
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </nav>
+          );
+        }
+
+        function HomePage({ onNavigate }) {
+          return (
+            <div
+              className="homepage-container relative w-full min-h-[calc(100vh-160px)] flex items-center justify-center bg-cover bg-center overflow-hidden"
+              style={{
+                backgroundImage: `url('https://placehold.co/1920x1080/E0E0E0/C0C0C0?text=Subtle+Grey+Background')`, // Subtle grey abstract background image
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              {/* Subtle background circles for sleekness - CSS only animation */}
+              <div className="absolute top-10 left-10 w-48 h-48 bg-zinc-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+              <div className="absolute bottom-20 right-20 w-48 h-48 bg-gray-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-neutral-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+
+              <div className="relative text-center max-w-4xl space-y-8 p-8 bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-xl shadow-2xl transform transition-transform duration-500 z-10 animate-fade-in-up">
+                <img
+                  src="https://placehold.co/150x150/4B5563/FFFFFF?text=JP" // Placeholder for your professional photo (changed placeholder color to match theme)
+                  alt="Your Professional Photo"
+                  className="mx-auto rounded-full w-36 h-36 object-cover border-4 border-zinc-500 shadow-lg mb-6 transform animate-zoom-in"
+                />
+                <h1 className="text-5xl md:text-6xl font-extrabold text-zinc-900 leading-tight animate-slide-in-left">
+                  Hello, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">John/Jane Doe</span>
+                </h1>
+                <p className="text-xl md:text-zinc-700 max-w-2xl mx-auto animate-fade-in delay-500">
+                  A passionate <span className="font-semibold text-zinc-800">Software Developer</span> building scalable web applications with a focus on cutting-edge technologies.
+                </p>
+                <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-8 animate-fade-in-up delay-1000">
+                  <button
+                    onClick={() => onNavigate('projects')}
+                    className="px-8 py-4 bg-gradient-to-r from-zinc-700 to-gray-600 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 relative overflow-hidden group"
+                  >
+                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                    View My Projects
+                  </button>
+                  <button
+                    onClick={() => onNavigate('resume')}
+                    className="px-8 py-4 bg-white text-zinc-700 border-2 border-zinc-700 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-zinc-50 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 relative overflow-hidden group"
+                  >
+                    <span className="absolute inset-0 bg-zinc-700 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                    Download Resume
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function AboutPage() {
+          // Using cool-toned emojis that align with a sleek look
+          const skills = [
+            { name: 'React.js', level: 'Expert', icon: '✨' },
+            { name: 'Django', level: 'Advanced', icon: '🚀' },
+            { name: 'JavaScript', level: 'Expert', icon: '💻' },
+            { name: 'Python', level: 'Expert', icon: '🐍' },
+            { name: 'Algorithms', level: 'Advanced', icon: '🧠' },
+            { name: 'Data Structures', level: 'Advanced', icon: '📊' },
+            { name: 'System Design', level: 'Intermediate', icon: '🏗️' },
+            { name: 'PostgreSQL', level: 'Intermediate', icon: '🗄️' },
+            { name: 'Git', level: 'Expert', icon: '🌐' },
+          ];
+
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
+              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 mb-12 transform hover:scale-[1.005] transition-transform duration-500 animate-fade-in-up">
+                <h2 className="text-4xl font-extrabold text-zinc-900 mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">About Me</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                  <div className="space-y-4">
+                    <p className="text-lg text-zinc-700 leading-relaxed">
+                      Hello! I'm a dedicated and innovative Software Developer with a strong passion for building robust and scalable web applications. My journey in software began with a curiosity for how things work, evolving into a drive to create impactful solutions that solve real-world problems.
+                    </p>
+                    <p className="text-lg text-zinc-700 leading-relaxed">
+                      I specialize in full-stack development, leveraging my expertise in <span className="font-semibold text-zinc-800">React.js</span> for dynamic and intuitive user interfaces, and <span className="font-semibold text-zinc-800">Django</span> for powerful and efficient backend systems. My foundation in <span className="font-semibold text-zinc-800">Algorithms</span> and <span className="font-semibold text-zinc-800">Data Structures</span> ensures that the solutions I build are not just functional, but also optimized for performance.
+                    </p>
+                    <p className="text-lg text-zinc-700 leading-relaxed">
+                      I thrive in collaborative environments, constantly seeking to learn new technologies and improve my craft. I'm eager to contribute my skills to challenging projects and make a significant impact.
+                    </p>
+                  </div>
+                  <div className="flex justify-center">
+                    <img
+                      src="https://placehold.co/400x400/D1D5DB/4B5563?text=Creative+Developer" // Adjusted placeholder image colors
+                      alt="Creative Developer Illustration"
+                      className="rounded-lg shadow-lg max-w-full h-auto transform hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 animate-fade-in-up delay-300">
+                <h3 className="text-3xl font-bold text-zinc-900 mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">My Skills</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                  {skills.map((skill, index) => (
+                    <div key={index} className={`flex flex-col items-center p-4 rounded-xl shadow-md border-t-4 border-zinc-200 transform hover:scale-105 transition-transform duration-300 bg-zinc-50 hover:bg-zinc-100`}>
+                      <span className={`text-5xl mb-3`}>{skill.icon}</span>
+                      <h4 className="text-xl font-semibold text-zinc-800 mb-1">{skill.name}</h4>
+                      <p className="text-md text-zinc-600">{skill.level}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function ProjectCard({ project, onNavigate, setProjectId }) {
+          return (
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300 flex flex-col h-full group">
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className="w-full h-48 object-cover border-b border-zinc-200 group-hover:brightness-90 transition-brightness duration-300"
+                onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/808080/FFFFFF?text=Image+Not+Found`; }}
+              />
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-2xl font-bold text-zinc-900 mb-3">{project.title}</h3>
+                <p className="text-zinc-700 text-base mb-4 flex-grow">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech, index) => (
+                    <span key={index} className="bg-zinc-100 text-zinc-700 text-xs font-medium px-2.5 py-0.5 rounded-full shadow-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  onClick={() => {
+                    setProjectId(project.id);
+                    onNavigate('projectDetail');
+                  }}
+                  className="mt-auto self-start px-5 py-2 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
+                >
+                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                  Learn More
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        function ProjectsPage({ onNavigate, setProjectId }) {
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
+              <h2 className="text-4xl font-extrabold text-zinc-900 mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500 animate-fade-in-up">My Projects</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up delay-300">
+                {portfolioData.projects.map((project) => (
+                  <ProjectCard key={project.id} project={project} onNavigate={onNavigate} setProjectId={setProjectId} />
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        function ProjectDetailPage({ projectId, onNavigate }) {
+          const project = portfolioData.projects.find(p => p.id === projectId);
+
+          if (!project) {
+            return (
+              <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in">
+                <h2 className="text-3xl font-bold text-red-600 mb-4">Project Not Found</h2>
+                <p className="text-lg text-zinc-700">The project you are looking for does not exist.</p>
+                <button
+                  onClick={() => onNavigate('projects')}
+                  className="mt-8 px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:bg-zinc-800 transition-colors duration-300"
+                >
+                  Back to Projects
+                </button>
+              </div>
+            );
+          }
+
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
+              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12">
+                <button
+                  onClick={() => onNavigate('projects')}
+                  className="inline-flex items-center text-zinc-700 hover:text-zinc-900 transition-colors duration-300 mb-6 font-semibold group"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:-translate-x-1 transition-transform duration-200">
+                    <path d="m15 18-6-6 6-6"></path>
+                  </svg>
+                  Back to Projects
+                </button>
+
+                <h2 className="text-4xl font-extrabold text-zinc-900 mb-6 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">{project.title}</h2>
+
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-80 object-cover rounded-lg mb-8 shadow-lg border border-zinc-200"
+                  onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/1200x400/808080/FFFFFF?text=Project+Image`; }}
+                />
+
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Description</h3>
+                  <p className="text-lg text-zinc-700 leading-relaxed">{project.description}</p>
+                </div>
+
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Technologies Used</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {project.technologies.map((tech, index) => (
+                      <span key={index} className="bg-zinc-100 text-zinc-700 text-lg font-medium px-4 py-1.5 rounded-full shadow-sm transform hover:scale-105 transition-transform duration-200">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Key Features</h3>
+                  <ul className="list-disc list-inside text-lg text-zinc-700 space-y-2">
+                    {project.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-zinc-500 mr-2">✓</span> {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Challenges & Learnings</h3>
+                  <p className="text-lg text-zinc-700 leading-relaxed mb-2">{project.challenges}</p>
+                  <p className="text-lg text-zinc-700 leading-relaxed">{project.learnings}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-4 mt-8">
+                  {project.liveLink && (
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center group"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:scale-110 transition-transform duration-200">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"></path>
+                      </svg>
+                      Live Demo
+                    </a>
+                  )}
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center group"
+                    >
+                      <GitHubIcon className="mr-2 group-hover:scale-110 transition-transform duration-200" />
+                      GitHub Repo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function BlogPostCard({ post, onNavigate, setPostId }) {
+          return (
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300 flex flex-col h-full group">
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-2xl font-bold text-zinc-900 mb-3">{post.title}</h3>
+                <p className="text-sm text-zinc-500 mb-3">{post.date}</p>
+                <p className="text-zinc-700 text-base mb-4 flex-grow">{post.summary}</p>
+                <button
+                  onClick={() => {
+                    setPostId(post.id);
+                    onNavigate('blogPost');
+                  }}
+                  className="mt-auto self-start px-5 py-2 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
+                >
+                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                  Read More
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        function BlogPage({ onNavigate, setPostId }) {
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
+              <h2 className="text-4xl font-extrabold text-zinc-900 mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500 animate-fade-in-up">My Blog</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up delay-300">
+                {portfolioData.blogPosts.map((post) => (
+                  <BlogPostCard key={post.id} post={post} onNavigate={onNavigate} setPostId={setPostId} />
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        function BlogPostPage({ postId, onNavigate }) {
+          const post = portfolioData.blogPosts.find(p => p.id === postId);
+          const [summary, setSummary] = useState('');
+          const [isLoadingSummary, setIsLoadingSummary] = useState(false);
+          const [summaryError, setSummaryError] = useState('');
+
+          const generateSummary = async () => {
+            setIsLoadingSummary(true);
+            setSummaryError('');
+            setSummary('');
+
+            try {
+              const prompt = `Summarize the following blog post content concisely:\n\n${post.content}`;
+              let chatHistory = [];
+              chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+              const payload = { contents: chatHistory };
+              const apiKey = ""; // Leave as empty string for Canvas environment
+              const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+              const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+
+              if (!response.ok) {
+                throw new Error(`API error: ${response.status} ${response.statusText}`);
+              }
+
+              const result = await response.json();
+              if (result.candidates && result.candidates.length > 0 &&
+                  result.candidates[0].content && result.candidates[0].content.parts &&
+                  result.candidates[0].content.parts.length > 0) {
+                setSummary(result.candidates[0].content.parts[0].text);
+              } else {
+                setSummaryError('Failed to get summary: Unexpected API response structure.');
+                console.error('Unexpected API response structure:', result);
+              }
+            } catch (error) {
+              setSummaryError(`Failed to generate summary: ${error.message}`);
+              console.error('Error generating summary:', error);
+            } finally {
+              setIsLoadingSummary(false);
+            }
+          };
+
+          if (!post) {
+            return (
+              <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in">
+                <h2 className="text-3xl font-bold text-red-600 mb-4">Blog Post Not Found</h2>
+                <p className="text-lg text-zinc-700">The blog post you are looking for does not exist.</p>
+                <button
+                  onClick={() => onNavigate('blog')}
+                  className="mt-8 px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:bg-zinc-800 transition-colors duration-300"
+                >
+                  Back to Blog
+                </button>
+              </div>
+            );
+          }
+
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
+              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12">
+                <button
+                  onClick={() => onNavigate('blog')}
+                  className="inline-flex items-center text-zinc-700 hover:text-zinc-900 transition-colors duration-300 mb-6 font-semibold group"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:-translate-x-1 transition-transform duration-200">
+                    <path d="m15 18-6-6 6-6"></path>
+                  </svg>
+                  Back to Blog
+                </button>
+
+                <h2 className="text-4xl font-extrabold text-zinc-900 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">{post.title}</h2>
+                <p className="text-sm text-zinc-500 mb-8">Published on: {post.date}</p>
+
+                {/* Blog Post Content */}
+                <div className="prose prose-lg max-w-none text-zinc-800" dangerouslySetInnerHTML={{ __html: post.content }} />
+
+                {/* Gemini API Feature: Summarize Blog Post */}
+                <div className="mt-12 pt-8 border-t-2 border-zinc-100">
+                  <h3 className="text-2xl font-bold text-zinc-800 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">
+                    AI-Powered Summary ✨
+                  </h3>
+                  <button
+                    onClick={generateSummary}
+                    disabled={isLoadingSummary}
+                    className="px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group mb-6"
+                  >
+                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                    {isLoadingSummary ? 'Generating summary...' : 'Summarize Blog Post ✨'}
+                  </button>
+
+                  {summaryError && (
+                    <p className="text-red-600 text-sm mt-2">{summaryError}</p>
+                  )}
+
+                  {summary && (
+                    <div className="bg-zinc-50 p-4 rounded-lg shadow-inner border border-zinc-200 animate-fadeIn">
+                      <p className="text-zinc-700 text-lg leading-relaxed">{summary}</p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          );
+        }
+
+        function ResumePage() {
+          const resumeDownloadLink = "#"; // Replace with your actual resume PDF link
+
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in-up">
+              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 max-w-2xl mx-auto">
+                <h2 className="text-4xl font-extrabold text-zinc-900 mb-6 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">My Resume</h2>
+                <p className="text-lg text-zinc-700 mb-8">
+                  You can download my full resume below to learn more about my professional experience, skills, and education.
+                </p>
+                <a
+                  href={resumeDownloadLink}
+                  download="Your_Name_Resume.pdf" // Suggested file name for download
+                  className="inline-flex items-center px-8 py-4 bg-zinc-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 relative overflow-hidden group"
+                >
+                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3 group-hover:scale-110 transition-transform duration-200">
+                    <path d="M12 17V3"></path>
+                    <path d="m6 11 6 6 6-6"></path>
+                    <path d="M19 21H5"></path>
+                  </svg>
+                  Download Resume (PDF)
+                </a>
+                <p className="text-sm text-zinc-500 mt-4">
+                  (Note: This is a placeholder link. Please replace '#' with your actual resume PDF URL.)
+                </p>
+              </div>
+            </div>
+          );
+        }
+
+        function ContactPage() {
+          const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+          const [status, setStatus] = useState(''); // 'success', 'error', 'submitting', ''
+
+          const handleChange = (e) => {
+            setFormData({ ...formData, [e.target.name]: e.target.value });
+          };
+
+          const handleSubmit = async (e) => {
+            e.preventDefault();
+            setStatus('submitting');
+
+            // Basic client-side validation
+            if (!formData.name || !formData.email || !formData.message) {
+              setStatus('error');
+              console.error('Please fill in all fields.');
+              return;
+            }
+
+            // Simulate API call
+            console.log('Form Data Submitted:', formData);
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+            setStatus('success');
+            setFormData({ name: '', email: '', message: '' });
+          };
+
+          return (
+            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
+              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 max-w-3xl mx-auto">
+                <h2 className="text-4xl font-extrabold text-zinc-900 mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">Get in Touch</h2>
+                <p className="text-lg text-zinc-700 text-center mb-10">
+                  Have a question, a project idea, or just want to say hello? Fill out the form below!
+                </p>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-lg font-medium text-zinc-800 mb-2">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="mt-1 block w-full px-4 py-2 border border-zinc-300 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 text-zinc-900 placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
+                      placeholder="Your Name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-lg font-medium text-zinc-800 mb-2">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="mt-1 block w-full px-4 py-2 border border-zinc-300 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 text-zinc-900 placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
+                      placeholder="your.email@example.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-lg font-medium text-zinc-800 mb-2">Message</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows="6"
+                      className="mt-1 block w-full px-4 py-2 border border-zinc-300 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 text-zinc-900 placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
+                      placeholder="Your message..."
+                      required
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={status === 'submitting'}
+                    className="w-full px-6 py-3 bg-zinc-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                  >
+                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                    {status === 'submitting' ? 'Sending...' : 'Send Message'}
+                  </button>
+                </form>
+
+                {status === 'success' && (
+                  <div className="mt-8 p-4 bg-green-100 text-green-800 rounded-lg border border-green-300 text-center text-lg font-semibold animate-fadeIn">
+                    Message sent successfully! I'll get back to you soon.
+                  </div>
+                )}
+                {status === 'error' && (
+                  <div className="mt-8 p-4 bg-red-100 text-red-800 rounded-lg border border-red-300 text-center text-lg font-semibold animate-fadeIn">
+                    Failed to send message. Please try again later.
+                  </div>
+                )}
+
+                <div className="mt-12 text-center">
+                  <p className="text-lg text-zinc-700 font-semibold mb-4">Find me on:</p>
+                  <div className="flex justify-center space-x-6">
+                    <a
+                      href="https://github.com/your-github" // Replace with your GitHub profile URL
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-700 hover:text-zinc-900 transform hover:scale-110 transition-transform duration-300"
+                    >
+                      <GitHubIcon className="h-10 w-10" />
+                      <span className="sr-only">GitHub</span>
+                    </a>
+                    <a
+                      href="https://linkedin.com/in/your-linkedin" // Replace with your LinkedIn profile URL
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-700 hover:text-blue-900 transform hover:scale-110 transition-transform duration-300"
+                    >
+                      <LinkedinIcon className="h-10 w-10" />
+                      <span className="sr-only">LinkedIn</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function Footer() {
+          return (
+            <footer className="bg-zinc-800 text-white p-6 mt-8 rounded-t-lg">
+              <div className="container mx-auto text-center text-sm">
+                <p>&copy; {new Date().getFullYear()} [Your Name]. All rights reserved.</p>
+                <div className="flex justify-center space-x-4 mt-4">
+                  <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-400 transition-colors duration-300">
+                    <GitHubIcon className="inline-block h-6 w-6" />
+                    <span className="ml-1">GitHub</span>
+                  </a>
+                  <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors duration-300">
+                    <LinkedinIcon className="inline-block h-6 w-6" />
+                    <span className="ml-1">LinkedIn</span>
+                  </a>
+                  {/* Add more social links as needed */}
+                </div>
+              </div>
+            </footer>
+          );
+        }
+
+        // Main App Component
+        const App = () => { // Changed to const for consistency with other function components
+          const [currentPage, setCurrentPage] = useState('home');
+          const [currentProjectId, setCurrentProjectId] = useState(null); // For ProjectDetail page
+          const [currentPostId, setCurrentPostId] = useState(null); // For BlogPostPage
+
+          const handleNavigate = (page, id = null) => {
+            setCurrentPage(page);
+            if (page === 'projectDetail') setCurrentProjectId(id);
+            else setCurrentProjectId(null);
+            if (page === 'blogPost') setCurrentPostId(id);
+            else setCurrentPostId(null);
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
+          };
+
+          const renderPage = () => {
+            switch (currentPage) {
+              case 'home':
+                return <HomePage onNavigate={handleNavigate} />;
+              case 'about':
+                return <AboutPage />;
+              case 'projects':
+                return <ProjectsPage onNavigate={handleNavigate} setProjectId={setCurrentProjectId} />;
+              case 'projectDetail':
+                return <ProjectDetailPage projectId={currentProjectId} onNavigate={handleNavigate} />;
+              case 'blog':
+                return <BlogPage onNavigate={handleNavigate} setPostId={setCurrentPostId} />;
+              case 'blogPost':
+                return <BlogPostPage postId={currentPostId} onNavigate={handleNavigate} />;
+              case 'resume':
+                return <ResumePage />;
+              case 'contact':
+                return <ContactPage />;
+              default:
+                return <HomePage onNavigate={handleNavigate} />;
+            }
+          };
+
+          return (
+            <div className="font-['Nunito_Sans'] bg-zinc-50 text-zinc-900 min-h-screen flex flex-col">
+              <Navbar onNavigate={handleNavigate} />
+              <main className="flex-grow">
+                {renderPage()}
+              </main>
+              <Footer />
+            </div>
+          );
+        };
+
+        // Mount the React App to the root div
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
