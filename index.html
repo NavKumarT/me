@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Your Name]'s Portfolio</title>
-    <!-- Nunito Sans font import -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap">
-    
+    <title>Naveen Kumar's Portfolio</title>
+    <!-- Outfit font import for sleek, modern look -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Configure Tailwind CSS to extend theme with custom fonts and animations -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Nunito Sans', 'sans-serif'],
+                        sans: ['Outfit', 'sans-serif'],
                     },
                     keyframes: {
                         fadeIn: {
@@ -24,15 +26,15 @@
                             to: { opacity: 1 },
                         },
                         fadeInUp: {
-                            from: { opacity: 0, transform: 'translateY(20px)' },
+                            from: { opacity: 0, transform: 'translateY(30px)' }, /* Increased translate for smoother start */
                             to: { opacity: 1, transform: 'translateY(0)' },
                         },
                         slideInLeft: {
-                            from: { opacity: 0, transform: 'translateX(-50px)' },
+                            from: { opacity: 0, transform: 'translateX(-80px)' }, /* Increased translate for smoother start */
                             to: { opacity: 1, transform: 'translateX(0)' },
                         },
                         zoomIn: {
-                            from: { opacity: 0, transform: 'scale(0.8)' },
+                            from: { opacity: 0, transform: 'scale(0.7)' }, /* Slightly reduced start scale */
                             to: { opacity: 1, transform: 'scale(1)' },
                         },
                         blob: {
@@ -41,13 +43,18 @@
                             '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                             '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         },
+                        timelineLineDraw: { /* Keyframe for drawing the timeline line */
+                            '0%': { height: '0%', opacity: 0, transform: 'scaleY(0)' },
+                            '100%': { height: '100%', opacity: 1, transform: 'scaleY(1)' }, /* FIX: Ensure 100% height, opacity, and scale */
+                        }
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
-                        'zoom-in': 'zoomIn 0.8s ease-out forwards',
-                        'blob': 'blob 7s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045)',
+                        'fade-in': 'fadeIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+                        'fade-in-up': 'fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+                        'slide-in-left': 'slideInLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+                        'zoom-in': 'zoomIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+                        'blob': 'blob 10s infinite cubic-bezier(0.4, 0, 0.2, 1)',
+                        'timeline-draw': 'timelineLineDraw 1.5s ease-out forwards', /* Apply to the line */
                     },
                 }
             },
@@ -55,45 +62,87 @@
     </script>
 
     <style>
-        /* Global styles for Nunito Sans font */
+        /* Global styles for Outfit font */
         body {
-            font-family: 'Nunito Sans', sans-serif;
-            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+            /* Smooth scrolling for navigation */
+            background-color: #0A0A0A;
+            /* Very dark background */
+            color: #FFFFFF;
+            /* Default text color is white */
+            overflow-x: hidden;
+            /* Prevent horizontal scroll from animations */
+        }
+
+        /* General transitions for smoother hover effects - also applied to all elements where applicable */
+        a,
+        button,
+        img,
+        .flex-col,
+        .grid,
+        .timeline-content {
+            /* Added timeline-content here */
+            transition-property: all;
+            transition-duration: 0.4s;
+            /* Slightly increased duration for general transitions */
+            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Smoother cubic-bezier for general transitions */
         }
 
         /* Custom prose styles for blog content */
+        /* Adjusted for dark theme */
         .prose :where(h1):not(:where([class~="not-prose"] *)) {
-            background: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
+            background: linear-gradient(to right, #e4e4e7, #a1a1aa);
+            /* zinc-200 to zinc-400 for light gradient */
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            --tw-gradient-from: #52525b; /* zinc-700 */
-            --tw-gradient-to: #6b7280; /* gray-500 */
         }
+
         .prose :where(h2):not(:where([class~="not-prose"] *)) {
-            background: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
+            background: linear-gradient(to right, #d4d4d8, #a1a1aa);
+            /* zinc-300 to zinc-400 */
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            --tw-gradient-from: #3f3f46; /* zinc-800 */
-            --tw-gradient-to: #71717a; /* zinc-600 */
         }
+
         .prose :where(h3):not(:where([class~="not-prose"] *)) {
-            color: #52525b; /* zinc-700 */
+            color: #d4d4d8;
+            /* zinc-300 */
         }
+
+        .prose p {
+            color: #a1a1aa;
+            /* zinc-400 */
+        }
+
+        .prose li {
+            color: #a1a1aa;
+            /* zinc-400 */
+        }
+
         .prose pre {
-            background-color: #f3f4f6; /* gray-100 */
+            background-color: #1f1f1f;
+            /* darker gray for code blocks */
             border-radius: 0.5rem;
             padding: 1rem;
             overflow-x: auto;
+            color: #e4e4e7;
+            /* zinc-200 */
         }
+
         .prose code {
-            background-color: #e5e7eb; /* gray-200 */
+            background-color: #2e2e2e;
+            /* slightly lighter for inline code */
             border-radius: 0.25rem;
             padding: 0.2em 0.4em;
             font-size: 0.875em;
-            color: #1f2937; /* gray-900 */
+            color: #e4e4e7;
+            /* zinc-200 */
         }
+
         .prose pre code {
             background-color: transparent;
             padding: 0;
@@ -101,11 +150,233 @@
         }
 
         /* Animation delays for staggered effects */
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
+        .animation-delay-500 {
+            animation-delay: 0.5s;
+        }
+
+        /* Adjusted to fit new base duration */
+        .animation-delay-1000 {
+            animation-delay: 1s;
+        }
+
+        .animation-delay-1500 {
+            animation-delay: 1.5s;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-2500 {
+            animation-delay: 2.5s;
+        }
+
+        .animation-delay-3000 {
+            animation-delay: 3s;
+        }
+
+        /* Custom filter for the professional photo for a premium blend */
+        .professional-photo-filter {
+            filter: grayscale(80%) brightness(0.8) contrast(1.2);
+        }
+
+        /* Custom box-shadow for blending */
+        .custom-shadow-blend {
+            box-shadow: 0px 0px 80px rgba(0, 0, 0, 0.9), 0px 0px 150px rgba(0, 0, 0, 0.5);
+            /* Soft, wide, deep shadow for blending */
+        }
+
+        /* Timeline specific styles */
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #52525b;
+            /* zinc-700 */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 0;
+            /* Ensure line is behind content */
+            animation: timelineLineDraw 1.5s ease-out forwards;
+            /* Apply line drawing animation */
+            /* Removed initial height/opacity here, handled by keyframe */
+            transform-origin: top;
+            /* Ensure scaling starts from the top */
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            /* Removed initial opacity: 0; so that fade-in-up works properly */
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            right: -8px;
+            /* half of width for center */
+            background-color: #a1a1aa;
+            /* zinc-400 */
+            border: 2px solid #52525b;
+            /* zinc-700 */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            animation: zoomIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            /* Dot zoom-in animation */
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.left::after {
+            left: auto;
+            /* override right:-8px; */
+            right: -8px;
+        }
+
+        .timeline-item.right::after {
+            left: -8px;
+            /* half of width for center */
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: #262626;
+            /* zinc-800 */
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            /* Make content a flex container */
+            align-items: center;
+            /* Vertically align items */
+            gap: 15px;
+            /* Space between image and text */
+            transform: translateY(0);
+            /* Ensure initial transform is set for transitions */
+            color: #E4E4E7;
+            /* Ensure text is light/readable on hover background */
+        }
+
+        .timeline-content:hover {
+            /* Hover animation for timeline content */
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            background-color: #3f3f46;
+            /* zinc-700 on hover - darker and more distinct */
+            /* Removed explicit text color change here, rely on global and child styles */
+        }
+
+        /* FIX: Ensure text colors are maintained or adjusted on hover */
+        .timeline-content:hover h3,
+        .timeline-content:hover p,
+        .timeline-content:hover ul,
+        .timeline-content:hover li {
+            color: #FFFFFF !important;
+            /* Ensure text becomes fully white on hover for h3 and p, overriding specificity */
+        }
+
+
+        .timeline-content img {
+            flex-shrink: 0;
+            /* Prevent image from shrinking */
+            border-radius: 50%;
+            /* Make images circular */
+            object-fit: cover;
+        }
+
+        /* Styles for custom bullet points */
+        .timeline-content ul {
+            list-style: none;
+            /* Remove default bullet */
+            padding-left: 0;
+            /* Remove default padding */
+            margin-top: 8px;
+            /* Space above bullets */
+            text-align: left;
+            /* Align bullets to left */
+        }
+
+        .timeline-content ul li {
+            position: relative;
+            padding-left: 18px;
+            /* Space for custom bullet */
+            margin-bottom: 4px;
+            /* Space between bullet points */
+            line-height: 1.5;
+            color: #a1a1aa;
+            /* zinc-400 for bullet text default */
+        }
+
+        .timeline-content ul li::before {
+            content: '\25AA';
+            /* Unicode for small square bullet */
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #52525b;
+            /* zinc-700 for the bullet itself */
+            font-size: 0.8em;
+            /* Size of the bullet */
+            line-height: 1.5;
+            /* Align with text */
+        }
+
+        /* Adjustments for smaller screens */
+        @media screen and (max-width: 768px) {
+            .timeline-container::after {
+                left: 31px;
+                /* Align line to left */
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                /* Space for the line and dot */
+                padding-right: 25px;
+            }
+
+            .timeline-item.left::after,
+            .timeline-item.right::after {
+                left: 23px;
+                /* Align dot to left */
+            }
+
+            .timeline-item.right {
+                left: 0%;
+                /* Stack items on small screens */
+            }
+
+            .timeline-content {
+                flex-direction: row;
+                /* Keep image and text side by side on small screens too */
+                align-items: flex-start;
+                /* Align image top with text */
+            }
+        }
     </style>
 </head>
-<body class="font-['Nunito_Sans'] bg-zinc-50 text-zinc-900 min-h-screen flex flex-col">
+
+<body class="font-['Outfit'] bg-zinc-950 text-white min-h-screen flex flex-col">
     <div id="root" class="min-h-screen flex flex-col"></div>
 
     <!-- React and ReactDOM CDNs -->
@@ -115,77 +386,74 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
-        // Your React application code goes here
-        // All components (Navbar, HomePage, AboutPage, etc.) should be defined within this script block.
-
         const { useState, useEffect, useRef } = React;
 
         // Mock Data for Projects and Blog Posts
         const portfolioData = {
-          projects: [
-            {
-              id: 'e-commerce-platform',
-              title: 'E-commerce Platform',
-              description: 'A full-stack e-commerce solution with user authentication, product listings, shopping cart functionality, and secure payment processing.',
-              technologies: ['React.js', 'Django REST Framework', 'PostgreSQL', 'Tailwind CSS', 'Stripe API'],
-              features: [
-                'User authentication (registration, login, logout)',
-                'Product browsing and search',
-                'Shopping cart management',
-                'Secure checkout with Stripe integration',
-                'Admin panel for product and order management',
-                'Responsive design for all devices'
-              ],
-              challenges: 'Managing complex state for the shopping cart and integrating a third-party payment gateway.',
-              learnings: 'Gained deep understanding of asynchronous data handling and API security best practices.',
-              imageUrl: 'https://placehold.co/600x400/87CEEB/FFFFFF?text=E-commerce+Platform',
-              liveLink: '#',
-              githubLink: '#',
-            },
-            {
-              id: 'task-management-app',
-              title: 'Task Management App',
-              description: 'A Kanban-style task management application designed for individual productivity, allowing users to organize tasks into different stages.',
-              technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Styled Components'],
-              features: [
-                'Drag-and-drop task reordering',
-                'Task creation, editing, and deletion',
-                'Filtering and sorting tasks',
-                'User-friendly interface',
-                'Real-time updates (via WebSockets - planned for future)'
-              ],
-              challenges: 'Implementing smooth drag-and-drop functionality and ensuring data persistence across sessions.',
-              learnings: 'Explored React context API for global state management and deepened understanding of RESTful API design.',
-              imageUrl: 'https://placehold.co/600x400/98FB98/FFFFFF?text=Task+Manager',
-              liveLink: '#',
-              githubLink: '#',
-            },
-            {
-              id: 'data-visualization-dashboard',
-              title: 'Data Visualization Dashboard',
-              description: 'An interactive dashboard displaying key metrics and trends using various chart types, built for easy data exploration.',
-              technologies: ['React.js', 'D3.js', 'Python (Flask)', 'Pandas'],
-              features: [
-                'Dynamic chart generation (bar, line, pie charts)',
-                'Filterable data views',
-                'Real-time data fetching simulation',
-                'Export data functionality',
-                'Responsive and interactive visualizations'
-              ],
-              challenges: 'Integrating D3.js with React\'s component lifecycle and optimizing performance for large datasets.',
-              learnings: 'Mastered data manipulation with Pandas and created custom, reusable D3.js chart components.',
-              imageUrl: 'https://placehold.co/600x400/FFD700/FFFFFF?text=Data+Dashboard',
-              liveLink: '#',
-              githubLink: '#',
-            },
-          ],
-          blogPosts: [
-            {
-              id: 'optimizing-react-performance',
-              title: 'Optimizing React Performance with Hooks',
-              date: 'June 20, 2025',
-              summary: 'A deep dive into `useMemo`, `useCallback`, and `React.memo` for boosting your React application\'s speed and efficiency.',
-              content: `
+            projects: [
+                {
+                    id: 'e-commerce-platform',
+                    title: 'E-commerce Platform',
+                    description: 'A full-stack e-commerce solution with user authentication, product listings, shopping cart functionality, and secure payment processing.',
+                    technologies: ['React.js', 'Django REST Framework', 'PostgreSQL', 'Tailwind CSS', 'Stripe API'],
+                    features: [
+                        'User authentication (registration, login, logout)',
+                        'Product browsing and search',
+                        'Shopping cart management',
+                        'Secure checkout with Stripe integration',
+                        'Admin panel for product and order management',
+                        'Responsive design for all devices'
+                    ],
+                    challenges: 'Managing complex state for the shopping cart and integrating a third-party payment gateway.',
+                    learnings: 'Gained deep understanding of asynchronous data handling and API security best practices.',
+                    imageUrl: 'https://placehold.co/600x400/3F3F46/A1A1AA?text=E-commerce+Platform',
+                    liveLink: '#',
+                    githubLink: '#',
+                },
+                {
+                    id: 'task-management-app',
+                    title: 'Task Management App',
+                    description: 'A Kanban-style task management application designed for individual productivity, allowing users to organize tasks into different stages.',
+                    technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Styled Components'],
+                    features: [
+                        'Drag-and-drop task reordering',
+                        'Task creation, editing, and deletion',
+                        'Filtering and sorting tasks',
+                        'User-friendly interface',
+                        'Real-time updates (via WebSockets - planned for future)'
+                    ],
+                    challenges: 'Implementing smooth drag-and-drop functionality and ensuring data persistence across sessions.',
+                    learnings: 'Explored React context API for global state management and deepened understanding of RESTful API design.',
+                    imageUrl: 'https://placehold.co/600x400/3F3F46/A1A1AA?text=Task+Manager',
+                    liveLink: '#',
+                    githubLink: '#',
+                },
+                {
+                    id: 'data-visualization-dashboard',
+                    title: 'Data Visualization Dashboard',
+                    description: 'An interactive dashboard displaying key metrics and trends using various chart types, built for easy data exploration.',
+                    technologies: ['React.js', 'D3.js', 'Python (Flask)', 'Pandas'],
+                    features: [
+                        'Dynamic chart generation (bar, line, pie charts)',
+                        'Filterable data views',
+                        'Real-time data fetching simulation',
+                        'Export data functionality',
+                        'Responsive and interactive visualizations'
+                    ],
+                    challenges: 'Integrating D3.js with React\'s component lifecycle and optimizing performance for large datasets.',
+                    learnings: 'Mastered data manipulation with Pandas and created custom, reusable D3.js chart components.',
+                    imageUrl: 'https://placehold.co/6F6F6F/A1A1AA?text=Data+Dashboard',
+                    liveLink: '#',
+                    githubLink: '#',
+                },
+            ],
+            blogPosts: [
+                {
+                    id: 'optimizing-react-performance',
+                    title: 'Optimizing React Performance with Hooks',
+                    date: 'June 20, 2025',
+                    summary: 'A deep dive into `useMemo`, `useCallback`, and `React.memo` for boosting your React application\'s speed and efficiency.',
+                    content: `
                 <p>Optimizing React applications is crucial for providing a smooth user experience. While React is generally fast, inefficient renders can lead to performance bottlenecks, especially in complex applications. This post explores three key React hooks and HOCs that help in performance optimization: <code>useMemo</code>, <code>useCallback</code>, and <code>React.memo</code>.</p>
                 
                 <h2>useMemo: Memoizing Expensive Computations</h2>
@@ -248,13 +516,13 @@ const MyPureComponent = memo(({ data }) => {
                 </code></pre>
                 <p>By effectively using these tools, you can significantly improve the performance and responsiveness of your React applications, leading to a much better user experience.</p>
               `,
-            },
-            {
-              id: 'understanding-system-design-basics',
-              title: 'Understanding System Design Basics',
-              date: 'June 10, 2025',
-              summary: 'An introduction to fundamental concepts in system design, focusing on scalability, availability, and reliability.',
-              content: `
+                },
+                {
+                    id: 'understanding-system-design-basics',
+                    title: 'Understanding System Design Basics',
+                    date: 'June 10, 2025',
+                    summary: 'An introduction to fundamental concepts in system design, focusing on scalability, availability, and reliability.',
+                    content: `
                 <p>System design interviews are a common part of the hiring process for senior software engineering roles. They test your ability to design complex systems that are scalable, reliable, and maintainable. This post covers some fundamental concepts to get you started.</p>
 
                 <h2>Scalability</h2>
@@ -282,739 +550,640 @@ const MyPureComponent = memo(({ data }) => {
 
                 <p>These are just the tip of the iceberg in system design, but understanding these core principles is essential before diving into more complex topics like distributed databases, message queues, and caching strategies.</p>
               `,
-            },
-          ],
+                },
+            ],
         };
 
         // --- Utility Components (Inline for Self-Contained App) ---
 
         // Icon components (using inline SVG for simplicity and self-containment)
         const MenuIcon = (props) => (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-            <line x1="4" y1="12" x2="20" y2="12"></line>
-            <line x1="4" y1="6" x2="20" y2="6"></line>
-            <line x1="4" y1="18" x2="20" y2="18"></line>
-          </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="6" x2="20" y2="6"></line>
+                <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
         );
 
         const XIcon = (props) => (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-            <path d="M18 6 6 18"></path>
-            <path d="m6 6 12 12"></path>
-          </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+            </svg>
         );
 
         const GitHubIcon = (props) => (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.3-2.2 4.3-4.9V8c0-1.2-.5-2.2-1.2-3.1C18.9 3.8 19 2.5 18.5 1c0 0-1 0-3 1.2c-1.1-.3-2.3-.5-3.5-.5c-1.2 0-2.4.2-3.5.5C5 1 4 1 4 1c-.5 1.5-.4 2.8-.2 3.8c-.7.9-1.2 2-1.2 3.1v3.4c0 2.7.8 4.9 4.3 4.9c-.9.7-1.7 2-1.7 3.2v4"></path>
-            <path d="M9 18c-2.4.8-4.4-1.6-4.4-1.6"></path>
-          </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.3-2.2 4.3-4.9V8c0-1.2-.5-2.2-1.2-3.1C18.9 3.8 19 2.5 18.5 1c0 0-1 0-3 1.2c-1.1-.3-2.3-.5-3.5-.5c-1.2 0-2.4.2-3.5.5C5 1 4 1 4 1c-.5 1.5-.4 2.8-.2 3.8c-.7.9-1.2 2-1.2 3.1v3.4c0 2.7.8 4.9 4.3 4.9c-.9.7-1.7 2-1.7 3.2v4"></path>
+                <path d="M9 18c-2.4.8-4.4-1.6-4.4-1.6"></path>
+            </svg>
         );
 
         const LinkedinIcon = (props) => (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-            <rect width="4" height="12" x="2" y="9"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect width="4" height="12" x="2" y="9"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+            </svg>
         );
 
         // --- Component Definitions ---
 
         function Navbar({ onNavigate }) {
-          const [isOpen, setIsOpen] = useState(false);
+            const [isOpen, setIsOpen] = useState(false);
 
-          const navItems = [
-            { name: 'Home', path: 'home' },
-            { name: 'About', path: 'about' },
-            { name: 'Projects', path: 'projects' },
-            { name: 'Blog', path: 'blog' },
-            { name: 'Resume', path: 'resume' },
-            { name: 'Contact', path: 'contact' },
-          ];
+            const navLeftItems = [
+                { name: 'PROJECTS', path: 'projects' },
+                { name: 'TIMELINE', path: 'timeline', href: "#timeline" }, // Re-purposing About to be Services as per example
+            ];
 
-          return (
-            <nav className="bg-zinc-800 text-white p-4 shadow-lg sticky top-0 z-50 rounded-b-lg">
-              <div className="container mx-auto flex justify-between items-center">
-                <div className="text-2xl font-bold cursor-pointer transition-transform duration-300 hover:scale-105" onClick={() => onNavigate('home')}>
-                  [Your Name]
-                </div>
-                <div className="hidden md:flex space-x-6">
-                  {navItems.map(item => (
-                    <a
-                      key={item.path}
-                      className="relative text-lg font-medium hover:text-zinc-200 transition-all duration-300 group"
-                      onClick={() => onNavigate(item.path)}
-                    >
-                      {item.name}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
-                    </a>
-                  ))}
-                </div>
-                <div className="md:hidden">
-                  <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
-                    {isOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-                  </button>
-                </div>
-              </div>
+            const navRightItems = [
+                { name: 'ABOUT', path: 'about' },
+                { name: 'CONTACT', path: 'contact' },
+            ];
 
-              {isOpen && (
-                <div className="md:hidden mt-4 bg-zinc-700 rounded-lg p-4 mx-4 shadow-xl">
-                  <div className="flex flex-col space-y-3">
-                    {navItems.map(item => (
-                      <a
-                        key={item.path}
-                        className="block text-lg font-medium py-2 px-4 rounded-md hover:bg-zinc-600 transition-colors duration-200"
-                        onClick={() => { onNavigate(item.path); setIsOpen(false); }}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </nav>
-          );
+            return (
+                <nav className="bg-zinc-950 text-white p-4 shadow-lg sticky top-0 z-50">
+                    <div className="container mx-auto flex justify-between items-center relative">
+                        {/* Left side nav items */}
+                        <div className="flex items-center space-x-6">
+                            <div className="hidden md:flex space-x-6 text-zinc-300">
+                                {navLeftItems.map(item => (
+                                    <a
+                                        key={item.path}
+                                        className="text-sm font-medium uppercase hover:text-white transition-colors duration-300 relative group"
+                                        onClick={() => onNavigate(item.path)}
+                                        href={item?.href}
+                                    >
+                                        {item.name}
+                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Center: NK text logo */}
+                        <div
+                            className="absolute left-1/2 -translate-x-1/2 cursor-pointer text-2xl font-bold text-white tracking-widest uppercase"
+                            onClick={() => onNavigate('home')}
+                        >
+                            NK
+                        </div>
+
+
+                        {/* Right side nav items or Mobile Menu Toggle */}
+                        <div className="flex items-center space-x-6">
+                            <div className="hidden md:flex space-x-6 text-zinc-300">
+                                {navRightItems.map(item => (
+                                    <a
+                                        key={item.path}
+                                        className="text-sm font-medium uppercase hover:text-white transition-colors duration-300 relative group"
+                                        onClick={() => onNavigate(item.path)}
+                                    >
+                                        {item.name}
+                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="md:hidden">
+                                <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+                                    {isOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {isOpen && (
+                        <div className="md:hidden mt-4 bg-zinc-800 rounded-lg p-4 mx-4 shadow-xl">
+                            <div className="flex flex-col space-y-3">
+                                {[...navLeftItems, ...navRightItems].map(item => ( // Combine for mobile
+                                    <a
+                                        key={item.path}
+                                        className="block text-lg font-medium py-2 px-4 rounded-md hover:bg-zinc-700 transition-colors duration-200"
+                                        onClick={() => { onNavigate(item.path); setIsOpen(false); }}
+                                    >
+                                        {item.name}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </nav>
+            );
         }
 
         function HomePage({ onNavigate }) {
-          return (
-            <div
-              className="homepage-container relative w-full min-h-[calc(100vh-160px)] flex items-center justify-center bg-cover bg-center overflow-hidden"
-              style={{
-                backgroundImage: `url('https://placehold.co/1920x1080/E0E0E0/C0C0C0?text=Abstract+Grey+Background')`, // Background image for the entire section
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              {/* Subtle background circles for sleekness - CSS only animation */}
-              <div className="absolute top-10 left-10 w-48 h-48 bg-zinc-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-              <div className="absolute bottom-20 right-20 w-48 h-48 bg-gray-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-neutral-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+            return (
+                <div className="min-h-[calc(100vh-64px)] flex flex-col justify-center items-center bg-zinc-950"> {/* Removed fixed height for flexibility, added full height for content */}
+                    {/* Main Hero Section */}
+                    <div
+                        className="relative w-full flex-grow flex items-center justify-center bg-cover bg-center overflow-hidden py-16 md:py-24" /* Added py- for vertical spacing */
+                        style={{
+                            backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKKtAH-y7hvyc4wWj56aOeRmsHXAVBnZuLOQ&s')`, // Abstract dark tech background
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                        }}
+                    >
+                        {/* Subtle background circles for sleekness - CSS only animation */}
+                        <div className="absolute top-10 left-10 w-48 h-48 bg-zinc-800 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+                        <div className="absolute bottom-20 right-20 w-48 h-48 bg-zinc-700 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-zinc-800 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
 
-              <div className="relative z-10 w-full max-w-6xl mx-auto p-4 md:p-8">
-                <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-xl shadow-2xl p-8 md:p-12 animate-fade-in-up">
-                  
-                  {/* Left Column: Text Content */}
-                  <div className="flex-1 text-center md:text-left space-y-6">
-                    <h1 className="text-5xl md:text-6xl font-extrabold text-zinc-900 leading-tight animate-slide-in-left">
-                      Hello, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">John/Jane Doe</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl text-zinc-700 max-w-2xl mx-auto md:mx-0 animate-fade-in delay-500">
-                      A passionate <span className="font-semibold text-zinc-800">Software Developer</span> building scalable web applications with a focus on cutting-edge technologies.
-                    </p>
-                    <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6 mt-8 animate-fade-in-up delay-1000">
-                      <button
-                        onClick={() => onNavigate('projects')}
-                        className="px-8 py-4 bg-gradient-to-r from-zinc-700 to-gray-600 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 relative overflow-hidden group"
-                      >
-                        <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                        View My Projects
-                      </button>
-                      <button
-                        onClick={() => onNavigate('resume')}
-                        className="px-8 py-4 bg-white text-zinc-700 border-2 border-zinc-700 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-zinc-50 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 relative overflow-hidden group"
-                      >
-                        <span className="absolute inset-0 bg-zinc-700 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                        Download Resume
-                      </button>
+                        <div className="relative z-10 w-full max-w-7xl mx-auto p-4 md:p-8">
+                            <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between gap-8 md:gap-16 bg-zinc-900 bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-none shadow-none p-8 md:p-12 animate-fade-in-up">
+
+                                {/* Left Column: Text Content */}
+                                <div className="flex-1 text-center md:text-left space-y-6 md:pr-8">
+                                    <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight animate-slide-in-left">
+                                        I'm Naveen,<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">a Software Engineer
+                                        </span>
+                                    </h1>
+                                    <p className="text-xl md:text-2xl text-zinc-300 max-w-xl mx-auto md:mx-0 animate-fade-in delay-500">
+                                        Building digital experiences that perform.
+                                    </p>
+                                    <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6 mt-8 animate-fade-in-up delay-1000">
+                                        <button
+                                            onClick={() => onNavigate('projects')}
+                                            className="px-6 py-2 w-32 h-10 md:w-40 md:h-12 rounded-none border border-white text-white text-sm md:text-base font-semibold uppercase flex items-center justify-center bg-transparent hover:bg-white hover:text-zinc-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                        >
+                                            MY WORK
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Right Column: Image */}
+                                <div className="flex-1 flex justify-center items-center p-4">
+                                    <img
+                                        src="IMG_20250418_131011069_HDR.jpg"
+                                        alt="Professional Portrait of Naveen Kumar"
+                                        className="rounded-xl object-cover max-w-full h-auto w-full md:w-[450px] md:h-[450px] transform professional-photo-filter" /* Applied rounded-xl and filter class */
+                                        style={{
+                                            boxShadow: '0px 0px 80px rgba(0, 0, 0, 0.9), 0px 0px 150px rgba(0, 0, 0, 0.5)' /* Custom shadow for blending */
+                                        }}
+                                        onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/450x450/3F3F46/FFFFFF?text=Professional+Photo`; }}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Subtle logos at the bottom, mimicking the example image */}
+                            <div className="mt-8 text-center md:text-left text-zinc-500 text-sm opacity-70 flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-4">
+                                <span className="flex items-center"><img src="data:image/png;base64,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" class="h-5 w-5 mr-2" alt="Company Logo" />Verizon</span>
+                                <span className="flex items-center"><img src="data:image/jpeg;base64,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" class="h-5 w-5 mr-2" alt="Company Logo" />Caterpillar</span>
+                                <span className="flex items-center"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARIAAAC4CAMAAAAYGZMtAAAAkFBMVEX///8AAAD6+vrw8PD39/fz8/Pm5ubOzs7r6+vx8fH4+Pjh4eHe3t7k5OTT09Pa2tq5ubmgoKDCwsJeXl7FxcUjIyNubm6ZmZmLi4u0tLSurq6UlJSoqKhhYWF1dXW3t7dUVFSCgoKHh4dGRkZNTU0yMjI7Ozt7e3tpaWk6OjpCQkIwMDAcHBwxMTEQEBAoKCjVhEXtAAAfJ0lEQVR4nO1dCXebvBIdsUk2WKwGAQKz2eCl+P//uzfCTuI4S9skbdzv+Z7TljpYgWGWO6ORALjjjjvuuOOOO+6444477rjjjjvuuOOOO+6448bAtK8Z5ktGAbCsLxroE6iW/PODWPE42J8fBvSEeF8wzOfASEjixScH8ce9bIn/2WvR5J7cgkg2C71erj3j40MEx6PAf9KWlM78E1cS/dg3Vvv9Ikk36AXsmnTJB4VCB1KeHMl8tSdh9MHrWAwH4uE48feLxN+Z6p9ZPpIh+m1Pa0YVCS/MLirIJvttT2vQnJAhmI77WxDJWTssf0m6/LdURU92ZODP5Kjxkmxj/juydUU7krV7/kqT/84V/Alocfh4HI39gVSe80v3o7lZRzb+KyKcpzEhtaf/0iCrgZBCuHn58FHT/spv/5PQhseLgSzUWFAul21vme+KRTPsfHdcx3T2xgkLf3fYd9Iy3xljztyy2u6aSBEjGT983ne/dwNfD6NqHo+TSTpmICoyVr7v2a85Bd3x/OJIKp++P/AixWGWuXRfoSsLN/OL9b5KggdVyoqHZ9B8u0jMffJ4LB4UBpVFdOvDYVzu89SzzvDSLGuX43jsBH1fix6GMVx/qHbbMpOSWtYC4aRZv1xvqyEJmHExhveoJeLbRaKP8vG47y9/YrqRTOLdSC4whiIJfo/XaRZP87hbjmRcrnfVIPKMOi/OCp58SfW7t/DVYCR7PC7718/RGVs4zoK94xk+i+ykJZoDdfiTU/84GBJoWYs88W0om5+f/4eQnnwJ2+jx8G0XcQYjAaRJkqxJBOX3UYLsJAhrNyveUNW/B0ZU5DBF7KLhJD89/U9BlnpAXRZ1evV9qnoGIw5YeTXVB0r5s7PfhGaan8gbAfKeHo7oyQt9k35mnK8AIzaEpBvCgUO5+ugo/W67PX6mwpD3KFRdt5hx/PYcR4nEpZHnYRZafvhqOhWhf8Ld3kUjzpdjLG9AJAvgZw75sbzcpP3+RFoOwy8lNq9hkEhgaH2M2feXkJSWdPtmesLlkxlr3EPKmXn8p4m+111yuU2ivVvMtb2kGYaiGPokuKw2FZ4zHMaxZyYJPn4zXwMlEsj31V7ojyKxsh1piyGOh6LajDvB33r2pbSVQArBmWky7g8HQpZptXvdq8zocNiEpZAed4OkHnZt/lj1rWhKegst1yJfVdf+MFTEAV/wHT6dciKyhli2K/ec4851J6rJrnn1JgUhaDLlRTXbqSdd2b4mQ7nbZly/0CDdkW110gmzczUajiQHh/xBjvxrULzEiclSmU6p6snu8lQ2nOHfUXR6ZLQn8cuEVqi7b/F7plH/IIXfKFNYhK/LJDrW5xFOkxL6KWbTKlYHrFUyZ/mxcb9fJDqy1qoK8NY16JG9Lg7quUWmW+04rOvQ8A0H788qf1zzBUslhKEFWlLbI9nwnJAOXaPW48fVdSElCd3zkSbxyOCR8qIeB00MqDjO5nw11g2IRBtSmB6YSKFH9lqtNEjS3K0dM9R22cB6GU7P1d03V2QsQxmgXrCxAXYMNQhQFj2qQkLINefrVaKrCgp5JFu7N1m5Ma1Az1WKF6Ju0jVMErcXnLxVlvpr0MIMHQbmun2mRLKogOdyL6PagpB1RWpstkrh7Ry0snr+1ZLsLBQn2zfgLFEklORB2eLZAxmfp/9ebNpBkvQs8EtdOlRaRWcb1I/TuQl0CRB0UCSob0eXhl8z+fgJaIWEfPKJGTQJ8FbDVMcbM68MQj3WK6fMlYrXPCp48+xyOUGbC2rUkCeR4Id4tnUkz9JZpwUmt1JzhedlPu+ooHliJ5iC0zYEPk4VJLMVYRsBLeG7oURiMk0D6UPegL73wCSrLIasNMEBlwccLxL/hO4A8UWWqsV43yZZa2x5KZLRgzl4hFxOqlYUz25EWiVGFeYlRVedS7PaJ5nsPQgwz8sEMGup5ChvQSTnacsgUyKBvkCDz59NeuPdDVGU9S4YmycexZSSCLK02eFCJHSM9BhgTy7qDKxD5aJ5wfsI08PHj13a+y56rxq9SOOZ6y0SnELLv702gCJRFQFNZw4Dv0aln1IVK0qGzfIwkrEtPdcE3dxwVRO114+3lJEQ3MOaBPrymUgwYDP84f7p3pNJ6Ok0ru0GmE5F3DkX7znMKwxonYvBxqGZ/4k868ugFTkEYdVu8FlnSmnLEux+ixSstheOyz3RHbqBQhROafJTGjQQAZIEe5+N4kIkx5zgc3YPxH38DeGZkLCk2rRFLURTDnHbFSJQIYxWqEPtozsOP5yNfxm0ogHLowt1dZ4SSVqlpDX0ipJHusX9HZGnp+pVDx+uUZ2KEbrYeiaSkazR6IyO5PTsi/UfUzLjFaF0n34vWCnpNkWmU2VWB0bJMRZJAN23l0uQl9Tq+qRKNwJVE6akXZfIw4yLJBAM2m2mx7foTuSk2Y3EArKGZnSuRDJlBYrDnkXK1PSdHQr3OrruOXOGjWx1MI665nh7UZVQfUWXyifRo59PSRiPPkRKJBrxfNJ1RBGVSyAjV9KoTk/6dMvoTgJCL0USkVOBfcCfn29uhg6bFi+TJGMZ7jtSj0cbXCVopr6pV99OS1AkIbA1qohDDDqxiabAnEYw53hFI7VYOdjqVChSIjEB3caC+MtnIjmFmhh/fvYPRqgZu1fS2+yQUC/kcnTBG4BH/mDOwepuQCR5h84Q1ENjfKJibCxRE4Lti0YRrcLQcarSQqG0RENmMu+q4zORnPyq+vlD01nJxGt17uQ0rSePDJIe/A0hy4672xsQib8zMeo4rmiRZU6OghXr5a55Jb9nR6Z3p+ddHwlZwOEIivrmTyLBPGfqVwlJ0T+E4bQ9vNYNp7cVty1PtXNhCq5+sx3pQf1HbvL3ILcMFhhz0a9Z+7McLOf1Og6mIMXpSLfUxE+NmpA+F8kxJkj4zJY8KZnx6FaeQ5eH8eSNC+R3pxpb+v3kFYPjqDT9pK7Ln1S0Ql483umAtx4hN3HHS5F4S6vD6MwP5MKf1m8WD09k1ugstzr96jR+48y/CWukQGVex+glxp+IZN8/9jwgQa0Mo1vPYHkpkvTAOIpEkvaikuAc3jcHtsF0sa2KQULy0Va3r4SOj1DWvtetLTi+34brkOOTh8EcJ0DXIdBtXIgkOyCbR3V73vC5en9Cw15DOvAoTTKIXzYV/H2YU71nVgt8rNunC5rrC+pJP098TyUkUyjqthf0UytJpcyH+9ciQWMk43PvUezfq5Vh+iTPIgzdd877a9jkim1zTO0gPD1Mg+Zli+lIn+d5U5dDWG0qEfAufGZXXKmJ3rr0uUhQ0fQtufKSxrB7Z370wafaDLobIK/INEqMGod2t0ugVkmdW7aF/7zNSDPYql/vr7S/JkcX/bJ1KRJ/byjVWV5boNZjZmdYrlI8zPtkGl0ENeGDzrNif6RQfXvlVSFswQ4od5gBAm1I/sgmh8FmoEeehhd7Po9lP+pnF2ztSYuCM3cYdo4DnCIOis0nRLz8NQWJu82QJ4mUSZKLvtoMydlKukCrSJnvVEHmJkSSksfDZJhSv4UeuEmx43kharOKc7OEwFJBNR8vFUVNWlT4sSeBkEOEIlGZoTFN5VwHDo55sH1lO3o6rH2lK0tHE3vhFfBAFr8bEYEorP3IMlRVOKae05fpKtaMOCtzYVbStgcoaAzSwghzYRHNNGMzUY4o7yPQlXNeVOrT6/k+saNzb8qsTbBtrqYtcCAPFvEP9EeqZX3REHTe6S2QVyUSpmXHbiBH5mygD2yRVIkXazCkQ+hobj7wddzy3u2qDGRx8c1TGTu+0JzzbN/6it/EvQZmpdKjnIiu9evBYMM6VFUDSmz3lP0a+RryVyzuG+Ao0hCnkvQGa2deDn1JSZTkuaCJHjqhjCM5KwKZ+EGPgfgy9+lHD5VirPJINwyDyxAzn2UUtFfkQkx1mHpA5Rh8dzGYgXDRi5+m4ONUVa40JZUZlLchErbM1NNTM5la5Rod0JHFEWQSTEx7gEuDulbve7EY2GO95AzrunPgmGCucrUAZTGlTsmw2dkz4du+75PQSuPoNJk88Fyie17z1LMfWMC3IxaQHk/N8KWE0IRMPTJtbpoWW1izufqJ5tCpEGJULwiuwfv2oMRx2Mbpa/PjzUTDvMEevExLykzTfQdquy+UdM3DDN1QnMtjtfP03S2QV0Q9gKMuxXQhyaHTYBHJvKy63YZgqnrYbgvhP0Ri9/UWzMmrvLGgx+hO91lXWXtpF/ZU2aax0eqwtlxVPXF/lmT9LWToDZ2sX+5bjJVauTs8s4Te0szIj9t+0un+dc32qq57q5BsnBsmwGCB7LvlYd0OfsatExf0fYYkgCRCla+i5dff3YeATt86Vn7gmEjF5/SZQOQDwWbpHsNG9mYHpmm8WQ7rT3w9KLaxL7PkPPT+xNR83x3RAaOX3vSaf/zSG/sEMFd5cBGYDtt50e33my4sk+d+I6zFh3pSLZIgV6vq82i6eFTDbWoUNCumao1mRxj2P3MbXwm85OE8ozSRDE1fLJj+wjNQ8l7u9g6C0Yu6C8dpJ49rFTahCrx+WAdKYN/fuveAsFAhd4J8c0pWSwon/2BHub25rqvxfNiiXJa1DjsPHFmHmDxrrxckvwP58USVEMGby8jKBE9J4l9b5XYNe/+CqWu6hbqITmg9RTNtsVm4h8+uV/4yRE9dhNbujQe1OsVP3sdCqnTo12EyLrty+8a6au7vZnrq4IDd4iYKrye442TDpov0o3vDnNXy+TnGJGRmfhlW6HzzNKLcZUzXZ7OZfgJjzLIdl1MaRUEQJHlftG019A6w9pXwbUW+KyvMf3drHBHqWyjPn2B0AnSvXhO89Pr1LMNUntWQeZ1Nam66QYr/KYe2XS+P+/3xuF8ejsvl4bAJhzguy6KM+1r4Mg2ixcnUvBdLj3iSuedWcYtmkmnhzQQcJJahlha+pbaXoK8vrTO3qCB6nWVVOtRIYV6zHPZgfuZl8NYs7qtb1Z+XY62gCabY23KwT9UVa7yF8vwZciLSVhbvLJ287j8H1I6sZ03iN3mbDnGd0OvtBR6IhzGI+jyfzFa5GMRyiuyXKZ3jy/PqapOY+rI0ytLEIP+lN/U5aIRCc+xEO2Ay/PqjchThFpYfVQaNoXC0yC8rkVnA0KFwhOukEfoRh/NkiOQxTbNE5MmQOHVcqghsjg/hRPdy+ahlTgUig6EXBSZKf+FWfxlbAdTRVrXqTH3Dx/lTwjcD6oKUHfWDsvBqX8fsKO38LF2Fza72k6TKK1lx2VPZRYuyEX3ec6qiTXJOGJmfuBdmlydQp3yr8Q7ab1/Vd4lYdScjTXNSjVdvnCO36dmmtCy0U7EYuGrz1gsarkSU70SnZdIaFjGLaZn1XmHlmasPqlyGFuVvJ08TSHnRo2FlORqVsyfUGrL5iwbib0VGFpCOfdXGJqzfml1y4k5MftUqHJXspGZoqv94XRAHdQ2tnuXpxi1YbMRZWrau0TigBECTWa/q1nqQu08VeD3qRUQ3hlp0C3GsBeQLdtv5OvDR04bYn4QRv71Zjeu3215STTNPznEygNmCnvYvCgyI7ECnGgdDFZwf/LQZiB2O6WbZU56jeUKkJvDyHOBwpLz9xHYwXw9tU0/pqIcJBz28fo5uWQvLYquy23T1iv8SgzWYm4WbYgUG9emjgpg8EYGBf8eCPFIRo7qN6vwjxH4Olmcfo9axyMXDPP/rpP1QVV0xxCUFzYlk3Y5t3Hj07SqYHWVqXX0oAuQjfva0o4krcs8CK4l9vymfei7Yp9YG/gG4aiGo72whFRCfH9diV8ZhnNCor/oHGhEUj4TLoFkTh+26DcOhiOu6bsSEug7b/WHfFuUkDfQ2+Y/8wTG7WZ8ZwLw+9tMy15/26EB3dhOzWk+YHyRUfNaaRQqr8wIjrVY9a+TQPKr8rEmu682mZXMaeF4qs8RPfT/1vABJim09BRbTCcvJS5mySfGAo9xKkVIN5hd7QQ03ZjdTM51XeEcDfSecpy8djySgPW0FROvyY60O7hBQ1IxcoEVyVK08909EN3oqLBrHG0pwToj2C5DtCtUCLadQKd6QUKspHki6JYvko0EykluRJKhrehbndRPZp9Ayd9qnklS0/uh62j+H5Tn2mp3BiQksy33p2cmZPzXkE1s0yLBEn2F4okMPcnbIWpT38sKR17dTK3mEmOppelodIhimPlXmBr6oi1hN6SVRLD7k/rSVP2x3bmnXyzBOz0uIDS7CmsPq3Aqdlbr2/cuDX8IhOvDmUHirCoLLPqp0h1bOqBRt9va338IilXIl1oT0lXwIsm4znAoDw1kx3YjfwCrHl1BrlYIcDdrEOx8vfZ1WF+hF5jJIwp+Xi+3ni0fwzhkPiTs8dI+7WdGf12BwYlCRyCxDBelvLt4o5A9lL8cD/3lV2ilLWy2zyncoLj1LqXwr9NjXGxK6ScaHDMRkF24eiqdtCcIBQlKGZCOAbW4qv3mAOdFHjVb7DNh1Bz0TIkCfS4ddkIkhSV46w1MUyZLLpkfak60vZVfEXVi3RXfZigL6iEQ4HKYlSqv119/PV2CNQSUKj6npBk8q8wgWNI079egtrKy6Tg2Rs5yt4eJxc2pHjDEj58TzPXnVhT4tK9AEUSZT3EZfyQtEBG1aORF3Ny0yfwEz6etyHApC2su7Mz03IEUlAi+IKHXoi3aLvjTrF+Wh2ZJOiyqzJT/tBXGLYMtzIIzGCPLqtVOMAxkJGZ/FY3r0i2Cfp82Q+GUpXVSLq29VERjxdUTJDkCnqUVktv73r5d+A83UIb9qO7/TrMNrNVhWLQ+78vmcXEKaPk3yjUgzWTfLRibXk6hx6SbbK93RdhL0ibFqMNt8ILz/HTiEg72rMBXrrYnVv4RmXk2fu25dJLL2mMiRfvkcVYRfz471WldnVx+mP1Acve/HRwneTdWhn6Pr0TFMOqyfuvp+CrfJZCyCKGqrxjsrwvWesfOa11l1tXDrmEBde6RMVgasb6ro+hz8PLGwKDYGepOfGLi6c5GUTeqFRa2o2NymWd+Ra09qdBiy/echbLXEkC6O06q3G5odfwXT0nLAwGgrnvKTbg9bg6BcrapuWhLsZnW4nHpGrr822xaaEVeXH2ndFMUxq4w1aG6SuT7AJQyMalBPzQD5ExP3zbQXVcxVray62CHquvi4SLRhpw2XH8uDBicWm4J9a+W059DWCToRPLCRPOnr9zcolIYIPcuIyu5Zw1/FNfTCF0bnJjBUaX5J2Q8Skl04CIkf1q/68duBt5zN28DpiWA6crf3jNwqckf3YnKNOI9jP7iYwOKyd1UX/dMnq7WJsVu1BAuwxxsrQ19D2/jgrjelhWmOqZbqvHWeakUMwmmPuanxbFyuQzG07S7MV/R5q5I3ba80PHEPc7fCAZIuKeZwA/u7/gwpMadVEOgqSnyCb7Q3WJYVNCiKfRVufmxHcuiqJuVcP9kLCzilTxTd72MGsnhKi7ItWLnieIGaq7iJpWvvwXjoYPY22xXIH69v1kRNnoRtWXuRpVnUcWzmWoZBUyk9qpvzuWFdVOgF1eNa2I8Noirlnjb9yDBVim804bsEP0zPtx4j5wiwfdPD6mo3U1PXwHDdyKMUs2TDcReWG0X0OaGpXZBtoz/WE5oY+Gld18qIxlvmJA8oQ9W9NnEFG5xXU53fQzyTAmj1wPwiDLrboD5IVWHZ3jQneYB+oGBNObGHxv4Fe6DHUx4YndubNNXbuNKA7ioXf8ONVgWu4B1O6x2rTbQ2oLswHSqLdt/G2XVV0ER3+2Y52Qj3XHWPVicTQSU87xGVMvb9+93+IqYdrdP1UKkVvPbygTdkirq76DlEV1yYky5Dtc6iKrJnk1Mm9cuhltSAgQ+BvuXJNE5AHPA3ZTBJRdzKyoqfYjFmoO1TqBPI5rAap8t32/hJOaLiYRk1q9ciUrJgUb3Mn7ZPireY5AZpHh9L9NI9mmA2FexwaMwU8paEKaYPNx+AH5ERDrQFQ0zmX4cYW7xpRtsRJbOEYmJpNwnI63wlMGNKi43kTFGNvnukr7N0E1tNMthq2Zdxcttx7rWZp+9ucIbvTYTrGYjHKc9NDNER/aBkTdUyvjukeL9UbUDgT6tf/UJoZaE8srNRpQ9r+tv0cuBqikIT6LBZ2ZRqFagG5lSvdNQejzfw8rVfxuI4gPZY2Fmsl0iq9IosEigZ51nqFyZakqW6FFkGVRYbSV7rCRLfQsJiq7ZWMpHtQ37YzlB/+DJSLzeB/mDCQnWO06OJXuXTryv7q1g9vurC61do9Kgx/iq3E4hN6kovw3wNst3ORO8bQo6fpk7O9hsb2MY7ovqIkCXuBnIntHz8bqo2ISj8qewfHNTPM2P/wdU934bsVAkyqq1Aih+QzE+hcXwYdOr6XmqroDSgDQheQq7F5ooLm/qJKrmo2m1bMc/cAorQ8hUdk5XaHykCmkS6Pbml6hZngd9HOFUGBLpW7WBhkBi8uXBRJEyJZOXUyOYYGIHUTiLxuFgEQcrmkOHDF4uOpbMNJFphSUuNsaFU9WVIUgxxh7JJyM1W5d+EVi0X53VUKlbm5IeWo0hixt0s8uzeVtPGZZIZ5clw3EkknvLJkS5Zx7LZDnwomM+G+QKipZKBCWmlG17j0H/MkZygbZYGbAIwyxiQm0qSJi66V51ziSKpVeOjU/kpiiSZRJIrkUR7A/SOPYgEtYT5s0EbgI9oVMPWQ5mggK11fKuTWe/CIiHmxf2xA33ZGWpLaJ4v0HCoH0m3X6gdGVd5qimRDObKzu0oWEWYRyfhzNcrtjJ36iczqZdAfLUKdOi9LUaag6G1/wxtvQInA1h+BFabZqEONaktX4JT9zzofXYowI1lVtdQisZoRGKJmgcoEjHoIgqZTw+Qox9JnBiIkohYg012Hlha+Q/R1itQtW0cGDtCwffV9jXZU3cw9Crb19S+4SYzgNkzWHDN3TrAKUQZ14JsBVxmEAm6mjxHcBD7iCJFaciNbC3wEahNwvRNNt+fJtAl8W3EAhNfxtTMjKFduQTrtZc30CN6JPWmUdU4YaBkb7K/5ldRE2+OLMI5Z8MZORzIOC6X+/V27GweVsUwxHHc933d1CJJxFIEHuUuiu2xgWCKt+UOaRo/ZqoK8+2vtPwcrl55HJGKepn0k7wkVS7Huu7LOB7Cqura3W67JcuIF1ezGCo9ArHdFg6Yg/mv8fhXIC5kMnC1LSOmvTPVZtD6yamfipmGaZozhtgcZBlKl3OKiFZZVpN2oSb2eMXa0TembR3/efRPLal874G9J9ILpRGRjsq1epW4FqRZGkSB6uJsx4xWFOaRl60ij7rpOjbU+j2Aruii0grIzU/b/AJY9agnfF3lYFWhbkReTrreX1pRJhKRyDzPmKYzfXfw66pJ02QVUJOxZrKSqAI1QaSrEBbe1Dqkj8Joz3qiLQNITQOKvQ12GG53pE08136MH0GakHUcdiKLLHSvKCBVdZXB9FIGfdTRO/+bpPUlWDjlaJp6RwkmuTbkY6DRcF/L0lNOQ3joNahj6VJ066EKU47HqE1jrwqPfOmPYeIyihK5nRX0n4XeKfY5vek3rbwdR4ISuylZ9+olQX4eBYFr0cCFuSOS9rANIu4wvRzPuW5Aaq+ckt/ve1Xi18PIUeUXyhmMJcwKC9wfpKQ8kytlNTRNZBoxLxVihX4FZSPzgqBfnZ1sSk4drj25uRU3n4MgqnY8OwZ5Mb0vS++OrhN5jahzP1WFRZlNczl6pt7WbpbTohXv3DpSCtCG/5pEVIKDTkS97h4FEG03nmoQAcU+bF0VIZ2FI6SUnudZaEqkN8GMnvZ0YNZ2/KdZ/Oug5OCCr16wEIzUCSmmcWEWZb4vU8eK/DwJqGXoDqVOu1OJrtVW/EEkdH8rm8h9LeiIBCXo5qBaaNQWBLNuDICn0pvaGaP0ZEChWrmiBXjsrc9taNmLLsf/CpCg+GCCo95AYQVqn+fs0EW6ztG9snkUuS7M/NZXL3ArOrV2x5jeUGwMt7WbwJfCKEmvATtOtfVEra2wBhK4vu9ZOoOAav72NAeq3nKjFgmba4bKdbzBRWpfB2+5RVay61TXTAB6aECwaR2dyyQwqSjU5pc6CoygJ+4m7m4K0t3e2s4vhbtFwuUGDLqkzZoBqKbnh0Q0QRaH02YeyXpD1SZTC1PVRWhH8v9EVvMuJFE76fU9QLEzHMVIrbLL2/P7LJsQs13qEMoSqek1Gf6NnppPgk97Z8/A3FJo9j5kNnDvYfmv6h3IO/AOP2KN7v/B+auPgaGXNabVZ1YbJfpSBztaoCRUI4Da4nRa4WrqAxH/Qm/eFyE9YNofzaBMqZ+o951s9ilM26KlR4b/VQdje0N7gv0FoArUGvAd0Hhn6usAgr1+2t+xJsUBxdX+h7nIW+BLdCVqM7QMnYvai46yU9sfDXTeHZJ/ri/gC2AIIhgsKm3aI05HvlL6rnr/rhOS+j+Z0fwCnIpMG5Pr21RPOiWacMXcgsT/R171GvOMTF18mCRPr6eyjbQgb+y4/X8DsyTTBuKKlszdimzkf5y9/wrcjlTRHAw378g6+390qq/AyltyJKQq/794yPswFovFb22efMcdd9xxxx133HHHHXfccccdd9xxxx133HHHHf8B/A9kbF8cVZVPaAAAAABJRU5ErkJggg==" class="h-5 w-5 mr-2" alt="Company Logo" />NIT Karnataka</span>
+                                {/* Add more as needed */}
+                            </div>
+                        </div>
                     </div>
-                  </div>
 
-                  {/* Right Column: Image */}
-                  <div className="flex-1 flex justify-center items-center p-4">
-                    <img
-                      src="https://placehold.co/450x450/4B5563/FFFFFF?text=Your+Professional+Photo" // Placeholder for your professional photo (larger size)
-                      alt="Your Professional Photo"
-                      className="rounded-xl object-cover border-4 border-zinc-500 shadow-lg max-w-full h-auto transform animate-zoom-in"
-                    />
-                  </div>
+                    {/* Roadmaps Section */}
+                    <div className="w-full bg-zinc-950 py-16 md:py-24" id="timeline">
+                        <div className="container mx-auto px-4">
+                            {/* Employment Journey Roadmap */}
+                            <h2 className="text-4xl font-extrabold text-white mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400 animate-fade-in-up">Employment Timeline</h2>
+                            <div className="timeline-container">
+                                <div className="timeline-item left animate-fade-in-up">
+                                    <div className="timeline-content hover:scale-[1.02] hover:shadow-lg">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQoAAACUCAMAAABcDpd8AAAAolBMVEUAAAD////W1tb/AAAYGBjw8PBycnL4+Pjl5eXs7Oz7+/teXl4aGhpHR0dNTU1oaGienp6UlJS8vLxtbW1BQUEzMzN6enrDw8NjY2MODg5SUlKDg4OKioo4ODhDAACnp6dKAADLAADMzMwzAADBAADUAACwsLArKyt/AABuAAD0AACzAADsAAAgAABTAADiAABlAACnAAAQAAAaLS2SAAAoPz8dr8baAAADoklEQVR4nO3YWXuaQBQG4AFkERAB2RSM0RhJl7RNl///13q+GU2MvaltUmqe771xHAYfzmGWkyhFRERERERERERERERERERERERERERERERERERERERERPSWXd29G/oR/hfr9x+GfoQXFkdN0yzPv+/aca5e/mkGNbFdd5ydf9/a2b78wwxrElhWmJ592/VH5/4VnmZQk/EfpWLrrF/hYf6l+S89y9y2N+1vjT3q+PTZuX65p3pt8czzvIVuVtIqZAK02SrNpugp5WKlVNQ2vd42CwwxqlLf3KVp1ib6h+RaM1qiYxarL3fYLR+c9dfBIjuf7Id+jkYSum4wVZltwTiX82IauG6oVoFVR9g2u853D0JPqUU+1mPtTPIysVy/rmp8d9NvD+9lZXy6dS6qqMgRi0wGtZNGPUpDa88eqRlCzdAfYdvMOutJpRbBoR3mpUqQv31P2F45sjS+O+ubocM7R+HLa+yk4UoMaeUjCekOH7VqEBqaG6TCz7LjVMz1lKh3Ovx0Pjm6Ztk/ts725ta5Gzq68yCUnUxwmQ6BhwmO5eJJnP4iMm852FULnYo4EUWkO+PUJGTer9AoTSq8vkRKreje+fjg3F5YedXiLSYKAeUzxKHiOFYbfDVLQDZOXVf45jDVsYZLhdmiexKMypaHoYVOhRRXjvN9wLD+CDa6Sj2uAH9jy8GJ2W/rVNQY85SKHlf8qb7N0sdrj11mU+JnZvI1MamQ3eLSJoWcIXi9hUQYLNPjBW/Zeq/Am35KRYnp4koKSpNBMcddQY9tE0fwPhVft7cXNymUh7Wwkvm+UQgqDA7qGVKBN/2Yih4Hjp9JGYXQfZ2KEdZWUJ6kQt3fXFJNYcTYMFFYd0ofEROppppIJM1pKkZYC+EqRheG4uRRJfba+pdUXKJ5btaDP5eaSj517Rl1XVdFz1ORKV11rMxt2DPyXhoLdHrFW0iFakwqNtLECx5HqDND39+dpqLV9dMO8k7fJWkpMMhdTt5EKiamfMDj7ytIXXKO1ckCeVZibXTaTAUmk0K9jVSMzMGh29PHanocK11mmFRgLzlJRVkfinS/Mxk4PkwvVCOVhL3fAsrcHsufXjZqzgglho6qqKVVVfYTKVDjzA5c3w3qBiMCqUaifSNIBovlb83jUfz4Zem1rdebbuk3/3/QLRl2YLrjps2qfdgyYN95uEpERERERERERERERERERERERERERERERERERERERERERP+Xn7QeMZkRhk0rAAAAAElFTkSuQmCC" alt="TechCorp Logo" class="h-12 w-12 rounded-full border border-zinc-700 object-cover" />
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white mb-2">Software Engineer 2 - Verizon</h3>
+                                            <p className="text-zinc-400 text-sm mb-1">July 2023 - Present</p>
+                                            <ul class="text-base space-y-1 mt-2">
+                                                <li>Designed and developed a lead management module integrated into Verizon's Point of Sales (POS) application, streamlining
+                                                    lead tracking and management across multiple sales channels</li>
+                                                <li>Enhanced sales operations by driving lead conversion rates by 17% (resulting in an estimated $1.2 million increase in quarterly
+                                                    revenue), enabling seamless lead generation, tracking, and conversion within Verizon's Point of Sales (POS) application and
+                                                    directly contributing to improved sales efficiency.</li>
+                                                <li>Optimized workflows and user experience by developing a React.js and Redux-based front-end and integrating REST APIs,
+                                                    resulting in a 25% improvement in system efficiency (measured by reduced page load times) and a 15% increase in user adoption
+                                                    rates (measured by daily active users).</li>
+                                                <li> Implemented scalable and maintainable code using React.js and Redux, ensuring 99.99% system reliability and seamless inte-
+                                                    gration within Verizon's POS system.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="timeline-item right animate-fade-in-up animation-delay-500">
+                                    <div className="timeline-content hover:scale-[1.02] hover:shadow-lg">
+                                        <img src="data:image/jpeg;base64,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" alt="Innovate Solutions Logo" class="h-12 w-12 rounded-full border border-zinc-700 object-cover" />
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white mb-2">Software Engineer Intern - Caterpillar Inc.</h3>
+                                            <p className="text-zinc-400 text-sm mb-1">May 2022 - July 2022</p>
+                                            <ul class="text-base space-y-1 mt-2">
+                                                <li>Collaborated with the Automation and Information Management (AIM) Team at Caterpillar Inc. in Bangalore, contributing to
+                                                    the development of software components and participating in agile development processes, including sprint planning and code
+                                                    reviews.</li>
+                                                <li>Collaborated with team members to implement good code practices and enhance project efficiency</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Add more employment items as needed */}
+                            </div>
+
+                            {/* Academic Path Roadmap */}
+                            <h2 className="text-4xl font-extrabold text-white mt-20 mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400 animate-fade-in-up">Academic Path</h2>
+                            <div className="timeline-container">
+                                <div className="timeline-item left animate-fade-in-up">
+                                    <div className="timeline-content hover:scale-[1.02] hover:shadow-lg">
+                                        <img src="data:image/png;base64,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" alt="University XYZ Logo" class="h-12 w-12 rounded-full border border-zinc-700 object-cover" />
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white mb-2">Bachelor of Technology in Engineering</h3>
+                                            <p className="text-zinc-400 text-sm mb-1">National Institue of Technology, Karnataka (2019 - 2023)</p>
+                                            <ul class="text-base space-y-1 mt-2">
+                                                <li>CGPA: 8.4 / 10</li>
+                                                <li>Specialized in Advanced Algorithms, Distributed Systems and Artificial Intelligence</li>
+                                                <li>Completed course project on data driven analysis of solar desalination techniques.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="timeline-item right animate-fade-in-up animation-delay-500">
+                                    <div className="timeline-content hover:scale-[1.02] hover:shadow-lg">
+                                        <img src="data:image/png;base64,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" alt="ABC Institute Logo" class="h-12 w-12 rounded-full border border-zinc-700 object-cover" />
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white mb-2">CBSE Senior Secondary</h3>
+                                            <p className="text-zinc-400 text-sm mb-1">MPEV SchooL (2016 - 2018)</p>
+                                            <ul class="text-base space-y-1 mt-2">
+                                                <li>Grade: 95% in Physics, Chemistry and Mathematics</li>
+                                                <li>99.5 Percentile in JEE</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Add more academic items as needed */}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
-            </div>
-          );
+            );
         }
 
         function AboutPage() {
-          // Using cool-toned emojis that align with a sleek look
-          const skills = [
-            { name: 'React.js', level: 'Expert', icon: '✨' },
-            { name: 'Django', level: 'Advanced', icon: '🚀' },
-            { name: 'JavaScript', level: 'Expert', icon: '💻' },
-            { name: 'Python', level: 'Expert', icon: '🐍' },
-            { name: 'Algorithms', level: 'Advanced', icon: '🧠' },
-            { name: 'Data Structures', level: 'Advanced', icon: '📊' },
-            { name: 'System Design', level: 'Intermediate', icon: '🏗️' },
-            { name: 'PostgreSQL', level: 'Intermediate', icon: '🗄️' },
-            { name: 'Git', level: 'Expert', icon: '🌐' },
-          ];
+            // Using cool-toned emojis that align with a sleek look
+            const skills = [
+                { name: 'React.js', level: 'Expert', icon: '✨' },
+                { name: 'Django', level: 'Advanced', icon: '🚀' },
+                { name: 'JavaScript', level: 'Expert', icon: '💻' },
+                { name: 'Python', level: 'Expert', icon: '🐍' },
+                { name: 'Algorithms', level: 'Advanced', icon: '🧠' },
+                { name: 'Data Structures', level: 'Advanced', icon: '📊' },
+                { name: 'System Design', level: 'Intermediate', icon: '🏗️' },
+                { name: 'PostgreSQL', level: 'Intermediate', icon: '🗄️' },
+                { name: 'Git', level: 'Expert', icon: '🌐' },
+            ];
 
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
-              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 mb-12 transform hover:scale-[1.005] transition-transform duration-500 animate-fade-in-up">
-                <h2 className="text-4xl font-extrabold text-zinc-900 mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">About Me</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                  <div className="space-y-4">
-                    <p className="text-lg text-zinc-700 leading-relaxed">
-                      Hello! I'm a dedicated and innovative Software Developer with a strong passion for building robust and scalable web applications. My journey in software began with a curiosity for how things work, evolving into a drive to create impactful solutions that solve real-world problems.
-                    </p>
-                    <p className="text-lg text-zinc-700 leading-relaxed">
-                      I specialize in full-stack development, leveraging my expertise in <span className="font-semibold text-zinc-800">React.js</span> for dynamic and intuitive user interfaces, and <span className="font-semibold text-zinc-800">Django</span> for powerful and efficient backend systems. My foundation in <span className="font-semibold text-zinc-800">Algorithms</span> and <span className="font-semibold text-zinc-800">Data Structures</span> ensures that the solutions I build are not just functional, but also optimized for performance.
-                    </p>
-                    <p className="text-lg text-zinc-700 leading-relaxed">
-                      I thrive in collaborative environments, constantly seeking to learn new technologies and improve my craft. I'm eager to contribute my skills to challenging projects and make a significant impact.
-                    </p>
-                  </div>
-                  <div className="flex justify-center">
-                    <img
-                      src="https://placehold.co/400x400/D1D5DB/4B5563?text=Creative+Developer" // Adjusted placeholder image colors
-                      alt="Creative Developer Illustration"
-                      className="rounded-lg shadow-lg max-w-full h-auto transform hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </div>
-              </div>
+            return (
+                <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
+                    <div className="bg-zinc-900 rounded-xl shadow-2xl p-8 md:p-12 mb-12 transform hover:scale-[1.005] transition-transform duration-500 animate-fade-in-up">
+                        <h2 className="text-4xl font-extrabold text-white mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">About Me</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                            <div className="space-y-4">
+                                <p className="text-lg text-zinc-300 leading-relaxed">
+                                    I'm Naveen Kumar — a software engineer with a passion for solving real-world problems through clean, scalable code. With over 1.5 years of professional experience, I’ve worked at the enterprise level to create impactful solutions, most recently contributing to Verizon’s POS systems where I helped boost lead conversion rates and system efficiency.                                </p>
+                                <p className="text-lg text-zinc-300 leading-relaxed">
+                                    Graduating from NITK Surathkal with a strong academic foundation in computer science, I bring hands-on expertise in front-end technologies like React.js, Redux, and Tailwind CSS, along with backend experience using Django and REST APIs. I’m also comfortable diving into systems-level programming, as shown in my Linux Kernel Module project.
 
-              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 animate-fade-in-up delay-300">
-                <h3 className="text-3xl font-bold text-zinc-900 mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">My Skills</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                  {skills.map((skill, index) => (
-                    <div key={index} className={`flex flex-col items-center p-4 rounded-xl shadow-md border-t-4 border-zinc-200 transform hover:scale-105 transition-transform duration-300 bg-zinc-50 hover:bg-zinc-100`}>
-                      <span className={`text-5xl mb-3`}>{skill.icon}</span>
-                      <h4 className="text-xl font-semibold text-zinc-800 mb-1">{skill.name}</h4>
-                      <p className="text-md text-zinc-600">{skill.level}</p>
+                                    <p className="text-lg text-zinc-300 leading-relaxed">
+                                        <br />
+                                        My strength lies not just in writing good code, but in building products that perform — both in terms of user experience and measurable business value. From increasing daily active users to reducing page load times, I focus on results that matter.                                </p>
+
+                                    <br />
+                                    Let's build something meaningful.                                </p>
+                            </div>
+                            <div className="flex justify-center">
+                                <img
+                                    src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Adjusted placeholder image colors for dark theme
+                                    alt="Creative Developer Illustration"
+                                    className="rounded-lg shadow-lg max-w-full h-auto transform hover:scale-105 transition-transform duration-300"
+                                />
+                            </div>
+                        </div>
                     </div>
-                  ))}
+
+                    <div className="bg-zinc-900 rounded-xl shadow-2xl p-8 md:p-12 animate-fade-in-up delay-300">
+                        <h3 className="text-3xl font-bold text-white mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">My Skills</h3>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            {skills.map((skill, index) => (
+                                <div key={index} className={`flex flex-col items-center p-4 rounded-xl shadow-md border-t-4 border-zinc-700 transform hover:scale-105 transition-transform duration-300 bg-zinc-800 hover:bg-zinc-700`}>
+                                    <span className={`text-5xl mb-3`}>{skill.icon}</span>
+                                    <h4 className="text-xl font-semibold text-white mb-1">{skill.name}</h4>
+                                    <p className="text-md text-zinc-400">{skill.level}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          );
+            );
         }
 
         function ProjectCard({ project, onNavigate, setProjectId }) {
-          return (
-            <div className="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300 flex flex-col h-full group">
-              <img
-                src={project.imageUrl}
-                alt={project.title}
-                className="w-full h-48 object-cover border-b border-zinc-200 group-hover:brightness-90 transition-brightness duration-300"
-                onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/808080/FFFFFF?text=Image+Not+Found`; }}
-              />
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold text-zinc-900 mb-3">{project.title}</h3>
-                <p className="text-zinc-700 text-base mb-4 flex-grow">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, index) => (
-                    <span key={index} className="bg-zinc-100 text-zinc-700 text-xs font-medium px-2.5 py-0.5 rounded-full shadow-sm">
-                      {tech}
-                    </span>
-                  ))}
+            return (
+                <div className="bg-zinc-900 rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300 flex flex-col h-full group">
+                    <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        className="w-full h-48 object-cover border-b border-zinc-800 group-hover:brightness-90 transition-brightness duration-300"
+                        onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/600x400/262626/A1A1AA?text=Image+Not+Found`; }}
+                    />
+                    <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
+                        <p className="text-zinc-300 text-base mb-4 flex-grow">{project.description}</p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {project.technologies.map((tech, index) => (
+                                <span key={index} className="bg-zinc-800 text-zinc-400 text-xs font-medium px-2.5 py-0.5 rounded-full shadow-sm">
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => {
+                                setProjectId(project.id);
+                                onNavigate('projectDetail');
+                            }}
+                            className="mt-auto self-start px-5 py-2 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
+                        >
+                            <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                            Learn More
+                        </button>
+                    </div>
                 </div>
-                <button
-                  onClick={() => {
-                    setProjectId(project.id);
-                    onNavigate('projectDetail');
-                  }}
-                  className="mt-auto self-start px-5 py-2 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
-                >
-                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                  Learn More
-                </button>
-              </div>
-            </div>
-          );
+            );
         }
 
         function ProjectsPage({ onNavigate, setProjectId }) {
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
-              <h2 className="text-4xl font-extrabold text-zinc-900 mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500 animate-fade-in-up">My Projects</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up delay-300">
-                {portfolioData.projects.map((project) => (
-                  <ProjectCard key={project.id} project={project} onNavigate={onNavigate} setProjectId={setProjectId} />
-                ))}
-              </div>
-            </div>
-          );
+            return (
+                <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
+                    <h2 className="text-4xl font-extrabold text-white mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400 animate-fade-in-up">My Projects</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up delay-300">
+                        {portfolioData.projects.map((project) => (
+                            <ProjectCard key={project.id} project={project} onNavigate={onNavigate} setProjectId={setProjectId} />
+                        ))}
+                    </div>
+                </div>
+            );
         }
 
         function ProjectDetailPage({ projectId, onNavigate }) {
-          const project = portfolioData.projects.find(p => p.id === projectId);
+            const project = portfolioData.projects.find(p => p.id === projectId);
 
-          if (!project) {
-            return (
-              <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in">
-                <h2 className="text-3xl font-bold text-red-600 mb-4">Project Not Found</h2>
-                <p className="text-lg text-zinc-700">The project you are looking for does not exist.</p>
-                <button
-                  onClick={() => onNavigate('projects')}
-                  className="mt-8 px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:bg-zinc-800 transition-colors duration-300"
-                >
-                  Back to Projects
-                </button>
-              </div>
-            );
-          }
-
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
-              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12">
-                <button
-                  onClick={() => onNavigate('projects')}
-                  className="inline-flex items-center text-zinc-700 hover:text-zinc-900 transition-colors duration-300 mb-6 font-semibold group"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:-translate-x-1 transition-transform duration-200">
-                    <path d="m15 18-6-6 6-6"></path>
-                  </svg>
-                  Back to Projects
-                </button>
-
-                <h2 className="text-4xl font-extrabold text-zinc-900 mb-6 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">{project.title}</h2>
-
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="w-full h-80 object-cover rounded-lg mb-8 shadow-lg border border-zinc-200"
-                  onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/1200x400/808080/FFFFFF?text=Project+Image`; }}
-                />
-
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Description</h3>
-                  <p className="text-lg text-zinc-700 leading-relaxed">{project.description}</p>
-                </div>
-
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {project.technologies.map((tech, index) => (
-                      <span key={index} className="bg-zinc-100 text-zinc-700 text-lg font-medium px-4 py-1.5 rounded-full shadow-sm transform hover:scale-105 transition-transform duration-200">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Key Features</h3>
-                  <ul className="list-disc list-inside text-lg text-zinc-700 space-y-2">
-                    {project.features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-zinc-500 mr-2">✓</span> {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-zinc-800 mb-3 border-b-2 pb-2 border-zinc-200">Challenges & Learnings</h3>
-                  <p className="text-lg text-zinc-700 leading-relaxed mb-2">{project.challenges}</p>
-                  <p className="text-lg text-zinc-700 leading-relaxed">{project.learnings}</p>
-                </div>
-
-                <div className="flex flex-wrap gap-4 mt-8">
-                  {project.liveLink && (
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center group"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:scale-110 transition-transform duration-200">
-                        <path d="M7 17l9.2-9.2M17 17V7H7"></path>
-                      </svg>
-                      Live Demo
-                    </a>
-                  )}
-                  {project.githubLink && (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center group"
-                    >
-                      <GitHubIcon className="mr-2 group-hover:scale-110 transition-transform duration-200" />
-                      GitHub Repo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        }
-
-        function BlogPostCard({ post, onNavigate, setPostId }) {
-          return (
-            <div className="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300 flex flex-col h-full group">
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold text-zinc-900 mb-3">{post.title}</h3>
-                <p className="text-sm text-zinc-500 mb-3">{post.date}</p>
-                <p className="text-zinc-700 text-base mb-4 flex-grow">{post.summary}</p>
-                <button
-                  onClick={() => {
-                    setPostId(post.id);
-                    onNavigate('blogPost');
-                  }}
-                  className="mt-auto self-start px-5 py-2 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
-                >
-                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                  Read More
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        function BlogPage({ onNavigate, setPostId }) {
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)]">
-              <h2 className="text-4xl font-extrabold text-zinc-900 mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500 animate-fade-in-up">My Blog</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up delay-300">
-                {portfolioData.blogPosts.map((post) => (
-                  <BlogPostCard key={post.id} post={post} onNavigate={onNavigate} setPostId={setPostId} />
-                ))}
-              </div>
-            </div>
-          );
-        }
-
-        function BlogPostPage({ postId, onNavigate }) {
-          const post = portfolioData.blogPosts.find(p => p.id === postId);
-          const [summary, setSummary] = useState('');
-          const [isLoadingSummary, setIsLoadingSummary] = useState(false);
-          const [summaryError, setSummaryError] = useState('');
-
-          const generateSummary = async () => {
-            setIsLoadingSummary(true);
-            setSummaryError('');
-            setSummary('');
-
-            try {
-              const prompt = `Summarize the following blog post content concisely:\n\n${post.content}`;
-              let chatHistory = [];
-              chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-              const payload = { contents: chatHistory };
-              const apiKey = ""; // Leave as empty string for Canvas environment
-              const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-              const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-              });
-
-              if (!response.ok) {
-                throw new Error(`API error: ${response.status} ${response.statusText}`);
-              }
-
-              const result = await response.json();
-              if (result.candidates && result.candidates.length > 0 &&
-                  result.candidates[0].content && result.candidates[0].content.parts &&
-                  result.candidates[0].content.parts.length > 0) {
-                setSummary(result.candidates[0].content.parts[0].text);
-              } else {
-                setSummaryError('Failed to get summary: Unexpected API response structure.');
-                console.error('Unexpected API response structure:', result);
-              }
-            } catch (error) {
-              setSummaryError(`Failed to generate summary: ${error.message}`);
-              console.error('Error generating summary:', error);
-            } finally {
-              setIsLoadingSummary(false);
-            }
-          };
-
-          if (!post) {
-            return (
-              <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in">
-                <h2 className="text-3xl font-bold text-red-600 mb-4">Blog Post Not Found</h2>
-                <p className="text-lg text-zinc-700">The blog post you are looking for does not exist.</p>
-                <button
-                  onClick={() => onNavigate('blog')}
-                  className="mt-8 px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:bg-zinc-800 transition-colors duration-300"
-                >
-                  Back to Blog
-                </button>
-              </div>
-            );
-          }
-
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
-              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12">
-                <button
-                  onClick={() => onNavigate('blog')}
-                  className="inline-flex items-center text-zinc-700 hover:text-zinc-900 transition-colors duration-300 mb-6 font-semibold group"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:-translate-x-1 transition-transform duration-200">
-                    <path d="m15 18-6-6 6-6"></path>
-                  </svg>
-                  Back to Blog
-                </button>
-
-                <h2 className="text-4xl font-extrabold text-zinc-900 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">{post.title}</h2>
-                <p className="text-sm text-zinc-500 mb-8">Published on: {post.date}</p>
-
-                {/* Blog Post Content */}
-                <div className="prose prose-lg max-w-none text-zinc-800" dangerouslySetInnerHTML={{ __html: post.content }} />
-
-                {/* Gemini API Feature: Summarize Blog Post */}
-                <div className="mt-12 pt-8 border-t-2 border-zinc-100">
-                  <h3 className="text-2xl font-bold text-zinc-800 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">
-                    AI-Powered Summary ✨
-                  </h3>
-                  <button
-                    onClick={generateSummary}
-                    disabled={isLoadingSummary}
-                    className="px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group mb-6"
-                  >
-                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                    {isLoadingSummary ? 'Generating summary...' : 'Summarize Blog Post ✨'}
-                  </button>
-
-                  {summaryError && (
-                    <p className="text-red-600 text-sm mt-2">{summaryError}</p>
-                  )}
-
-                  {summary && (
-                    <div className="bg-zinc-50 p-4 rounded-lg shadow-inner border border-zinc-200 animate-fadeIn">
-                      <p className="text-zinc-700 text-lg leading-relaxed">{summary}</p>
+            if (!project) {
+                return (
+                    <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in">
+                        <h2 className="text-3xl font-bold text-red-600 mb-4">Project Not Found</h2>
+                        <p className="text-lg text-zinc-300">The project you are looking for does not exist.</p>
+                        <button
+                            onClick={() => onNavigate('projects')}
+                            className="mt-8 px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:bg-zinc-800 transition-colors duration-300"
+                        >
+                            Back to Projects
+                        </button>
                     </div>
-                  )}
-                </div>
+                );
+            }
 
-              </div>
-            </div>
-          );
+            return (
+                <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
+                    <div className="bg-zinc-900 rounded-xl shadow-2xl p-8 md:p-12">
+                        <button
+                            onClick={() => onNavigate('blog')}
+                            className="inline-flex items-center text-zinc-300 hover:text-white transition-colors duration-300 mb-6 font-semibold group"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:-translate-x-1 transition-transform duration-200">
+                                <path d="m15 18-6-6 6-6"></path>
+                            </svg>
+                            Back to Blog
+                        </button>
+
+                        <h2 className="text-4xl font-extrabold text-white mb-4 text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">{post.title}</h2>
+                        <p className="text-sm text-zinc-500 mb-8">Published on: {post.date}</p>
+
+                        {/* Blog Post Content */}
+                        <div className="prose prose-lg max-w-none text-zinc-300" dangerouslySetInnerHTML={{ __html: post.content }} />
+
+                        {/* Gemini API Feature: Summarize Blog Post */}
+                        <div className="mt-12 pt-8 border-t-2 border-zinc-800">
+                            <h3 className="text-2xl font-bold text-white mb-4 text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">
+                                AI-Powered Summary ✨
+                            </h3>
+                            <button
+                                onClick={generateSummary}
+                                disabled={isLoadingSummary}
+                                className="px-6 py-3 bg-zinc-700 text-white font-semibold rounded-full shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-600 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                            >
+                                <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                                {isLoadingSummary ? 'Generating summary...' : 'Summarize Blog Post ✨'}
+                            </button>
+
+                            {summaryError && (
+                                <p className="text-red-600 text-sm mt-2">{summaryError}</p>
+                            )}
+
+                            {summary && (
+                                <div className="bg-zinc-800 p-4 rounded-lg shadow-inner border border-zinc-700 animate-fadeIn">
+                                    <p className="text-zinc-300 text-lg leading-relaxed">{summary}</p>
+                                </div>
+                            )}
+                        </div>
+
+                    </div>
+                </div>
+            );
         }
 
         function ResumePage() {
-          const resumeDownloadLink = "#"; // Replace with your actual resume PDF link
+            const resumeDownloadLink = "#"; // Replace with your actual resume PDF link
 
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in-up">
-              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 max-w-2xl mx-auto">
-                <h2 className="text-4xl font-extrabold text-zinc-900 mb-6 text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">My Resume</h2>
-                <p className="text-lg text-zinc-700 mb-8">
-                  You can download my full resume below to learn more about my professional experience, skills, and education.
-                </p>
-                <a
-                  href={resumeDownloadLink}
-                  download="Your_Name_Resume.pdf" // Suggested file name for download
-                  className="inline-flex items-center px-8 py-4 bg-zinc-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 relative overflow-hidden group"
-                >
-                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3 group-hover:scale-110 transition-transform duration-200">
-                    <path d="M12 17V3"></path>
-                    <path d="m6 11 6 6 6-6"></path>
-                    <path d="M19 21H5"></path>
-                  </svg>
-                  Download Resume (PDF)
-                </a>
-                <p className="text-sm text-zinc-500 mt-4">
-                  (Note: This is a placeholder link. Please replace '#' with your actual resume PDF URL.)
-                </p>
-              </div>
-            </div>
-          );
+            return (
+                <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] text-center animate-fade-in-up">
+                    <div className="bg-zinc-900 rounded-xl shadow-2xl p-8 md:p-12 max-w-2xl mx-auto">
+                        <h2 className="text-4xl font-extrabold text-white mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">My Resume</h2>
+                        <p className="text-lg text-zinc-300 mb-8">
+                            You can download my full resume below to learn more about my professional experience, skills, and education.
+                        </p>
+                        <a
+                            href={resumeDownloadLink}
+                            download="Naveen_Kumar_Resume.pdf" // Suggested file name for download
+                            className="inline-flex items-center px-8 py-4 bg-zinc-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-600 relative overflow-hidden group"
+                        >
+                            <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3 group-hover:scale-110 transition-transform duration-200">
+                                <path d="M12 17V3"></path>
+                                <path d="m6 11 6 6 6-6"></path>
+                                <path d="M19 21H5"></path>
+                            </svg>
+                            Download Resume (PDF)
+                        </a>
+                        <p className="text-sm text-zinc-500 mt-4">
+                            (Note: This is a placeholder link. Please replace '#' with your actual resume PDF URL.)
+                        </p>
+                    </div>
+                </div>
+            );
         }
 
         function ContactPage() {
-          const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-          const [status, setStatus] = useState(''); // 'success', 'error', 'submitting', ''
+            const [formSubmitted, setFormSubmitted] = useState(false); // Simplified state for form submission
 
-          const handleChange = (e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.value });
-          };
+            const handleSubmit = (event) => {
+                event.preventDefault(); // Prevent default form submission to handle success message
+                // In a real scenario, Web3Forms would handle the actual email sending
+                // after this form is submitted via its 'action' URL.
+                // For this self-contained file, we just simulate success.
+                setFormSubmitted(true);
+                // You can optionally reset the form fields here if desired
+                // event.target.reset();
+                console.log('Form submission simulated. Web3Forms would handle sending email.');
+            };
 
-          const handleSubmit = async (e) => {
-            e.preventDefault();
-            setStatus('submitting');
+            return (
+                <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
+                    <div className="bg-zinc-900 rounded-xl shadow-2xl p-8 md:p-12 max-w-3xl mx-auto">
+                        <h2 className="text-4xl font-extrabold text-white mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-400">Get in Touch</h2>
+                        <p className="text-lg text-zinc-300 text-center mb-10">
+                            Have a question, a project idea, or just want to say hello? Fill out the form below!
+                        </p>
 
-            // Basic client-side validation
-            if (!formData.name || !formData.email || !formData.message) {
-              setStatus('error');
-              console.error('Please fill in all fields.');
-              return;
-            }
+                        {!formSubmitted ? (
+                            <form action="https://api.web3forms.com/submit" method="POST" onSubmit={handleSubmit} className="space-y-6">
+                                {/* Replace YOUR_WEB3FORMS_ACCESS_KEY_HERE with your actual access key */}
+                                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE" />
+                                {/* Optional: Add a redirect URL after submission */}
+                                {/* <input type="hidden" name="redirect" value="https://yourdomain.com/success" /> */}
 
-            // Simulate API call
-            console.log('Form Data Submitted:', formData);
-            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+                                <div>
+                                    <label htmlFor="name" className="block text-lg font-medium text-white mb-2">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        className="mt-1 block w-full px-4 py-2 border border-zinc-700 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 bg-zinc-800 text-white placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
+                                        placeholder="Your Name"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-lg font-medium text-white mb-2">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        className="mt-1 block w-full px-4 py-2 border border-zinc-700 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 bg-zinc-800 text-white placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
+                                        placeholder="your.email@example.com"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="message" className="block text-lg font-medium text-white mb-2">Message</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows="6"
+                                        className="mt-1 block w-full px-4 py-2 border border-zinc-700 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 bg-zinc-800 text-white placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
+                                        placeholder="Your message..."
+                                        required
+                                    ></textarea>
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="w-full px-6 py-3 bg-zinc-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-600 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                                >
+                                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                                    Send Message
+                                </button>
+                            </form>
+                        ) : (
+                            <div className="mt-8 p-4 bg-green-700 text-white rounded-lg border border-green-600 text-center text-lg font-semibold animate-fadeIn">
+                                Message sent successfully! I'll get back to you soon.
+                            </div>
+                        )}
 
-            setStatus('success');
-            setFormData({ name: '', email: '', message: '' });
-          };
-
-          return (
-            <div className="container mx-auto p-8 py-16 min-h-[calc(100vh-160px)] animate-fade-in-up">
-              <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 max-w-3xl mx-auto">
-                <h2 className="text-4xl font-extrabold text-zinc-900 mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-zinc-700 to-gray-500">Get in Touch</h2>
-                <p className="text-lg text-zinc-700 text-center mb-10">
-                  Have a question, a project idea, or just want to say hello? Fill out the form below!
-                </p>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-lg font-medium text-zinc-800 mb-2">Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="mt-1 block w-full px-4 py-2 border border-zinc-300 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 text-zinc-900 placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
-                      placeholder="Your Name"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-lg font-medium text-zinc-800 mb-2">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="mt-1 block w-full px-4 py-2 border border-zinc-300 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 text-zinc-900 placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
-                      placeholder="your.email@example.com"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-lg font-medium text-zinc-800 mb-2">Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows="6"
-                      className="mt-1 block w-full px-4 py-2 border border-zinc-300 rounded-lg shadow-sm focus:ring-zinc-500 focus:border-zinc-500 text-zinc-900 placeholder-zinc-500 transition-colors duration-200 focus:outline-none"
-                      placeholder="Your message..."
-                      required
-                    ></textarea>
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={status === 'submitting'}
-                    className="w-full px-6 py-3 bg-zinc-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-zinc-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
-                  >
-                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                    {status === 'submitting' ? 'Sending...' : 'Send Message'}
-                  </button>
-                </form>
-
-                {status === 'success' && (
-                  <div className="mt-8 p-4 bg-green-100 text-green-800 rounded-lg border border-green-300 text-center text-lg font-semibold animate-fadeIn">
-                    Message sent successfully! I'll get back to you soon.
-                  </div>
-                )}
-                {status === 'error' && (
-                  <div className="mt-8 p-4 bg-red-100 text-red-800 rounded-lg border border-red-300 text-center text-lg font-semibold animate-fadeIn">
-                    Failed to send message. Please try again later.
-                  </div>
-                )}
-
-                <div className="mt-12 text-center">
-                  <p className="text-lg text-zinc-700 font-semibold mb-4">Find me on:</p>
-                  <div className="flex justify-center space-x-6">
-                    <a
-                      href="https://github.com/your-github" // Replace with your GitHub profile URL
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-zinc-700 hover:text-zinc-900 transform hover:scale-110 transition-transform duration-300"
-                    >
-                      <GitHubIcon className="h-10 w-10" />
-                      <span className="sr-only">GitHub</span>
-                    </a>
-                    <a
-                      href="https://linkedin.com/in/your-linkedin" // Replace with your LinkedIn profile URL
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-700 hover:text-blue-900 transform hover:scale-110 transition-transform duration-300"
-                    >
-                      <LinkedinIcon className="h-10 w-10" />
-                      <span className="sr-only">LinkedIn</span>
-                    </a>
-                  </div>
+                        <div className="mt-12 text-center">
+                            <p className="text-lg text-zinc-300 font-semibold mb-4">Find me on:</p>
+                            <div className="flex justify-center space-x-6">
+                                <a
+                                    href="https://linkedin.com/in/your-linkedin" // Replace with your LinkedIn profile URL
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-white transform hover:scale-110 transition-transform duration-300"
+                                >
+                                    <LinkedinIcon className="h-10 w-10" />
+                                    <span className="sr-only">LinkedIn</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          );
+            );
         }
 
         function Footer() {
-          return (
-            <footer className="bg-zinc-800 text-white p-6 mt-8 rounded-t-lg">
-              <div className="container mx-auto text-center text-sm">
-                <p>&copy; {new Date().getFullYear()} [Your Name]. All rights reserved.</p>
-                <div className="flex justify-center space-x-4 mt-4">
-                  <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-400 transition-colors duration-300">
-                    <GitHubIcon className="inline-block h-6 w-6" />
-                    <span className="ml-1">GitHub</span>
-                  </a>
-                  <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors duration-300">
-                    <LinkedinIcon className="inline-block h-6 w-6" />
-                    <span className="ml-1">LinkedIn</span>
-                  </a>
-                  {/* Add more social links as needed */}
-                </div>
-              </div>
-            </footer>
-          );
+            return (
+                <footer className="bg-zinc-950 text-zinc-500 p-6 mt-8"> {/* Footer matches overall dark theme, text more subtle */}
+                    <div className="container mx-auto text-center text-sm">
+                        <p>&copy; {new Date().getFullYear()} Naveen Kumar. All rights reserved.</p>
+                        <div className="flex justify-center space-x-4 mt-4">
+                            <a href="https://www.linkedin.com/in/naveenkumartuta/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors duration-300">
+                                <LinkedinIcon className="inline-block h-6 w-6" />
+                                <span className="ml-1">LinkedIn</span>
+                            </a>
+                            {/* Add more social links as needed */}
+                        </div>
+                    </div>
+                </footer>
+            );
         }
 
         // Main App Component
-        const App = () => { // Changed to const for consistency with other function components
-          const [currentPage, setCurrentPage] = useState('home');
-          const [currentProjectId, setCurrentProjectId] = useState(null); // For ProjectDetail page
-          const [currentPostId, setCurrentPostId] = useState(null); // For BlogPostPage
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [currentProjectId, setCurrentProjectId] = useState(null);
+            const [currentPostId, setCurrentPostId] = useState(null);
 
-          const handleNavigate = (page, id = null) => {
-            setCurrentPage(page);
-            if (page === 'projectDetail') setCurrentProjectId(id);
-            else setCurrentProjectId(null);
-            if (page === 'blogPost') setCurrentPostId(id);
-            else setCurrentPostId(null);
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
-          };
+            const handleNavigate = (page, id = null) => {
+                setCurrentPage(page);
+                if (page === 'projectDetail') setCurrentProjectId(id);
+                else setCurrentProjectId(null);
+                if (page === 'blogPost') setCurrentPostId(id);
+                else setCurrentPostId(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
 
-          const renderPage = () => {
-            switch (currentPage) {
-              case 'home':
-                return <HomePage onNavigate={handleNavigate} />;
-              case 'about':
-                return <AboutPage />;
-              case 'projects':
-                return <ProjectsPage onNavigate={handleNavigate} setProjectId={setCurrentProjectId} />;
-              case 'projectDetail':
-                return <ProjectDetailPage projectId={currentProjectId} onNavigate={handleNavigate} />;
-              case 'blog':
-                return <BlogPage onNavigate={handleNavigate} setPostId={setCurrentPostId} />;
-              case 'blogPost':
-                return <BlogPostPage postId={currentPostId} onNavigate={handleNavigate} />;
-              case 'resume':
-                return <ResumePage />;
-              case 'contact':
-                return <ContactPage />;
-              default:
-                return <HomePage onNavigate={handleNavigate} />;
-            }
-          };
+            const renderPage = () => {
+                switch (currentPage) {
+                    case 'home':
+                        return <HomePage onNavigate={handleNavigate} />;
+                    case 'about':
+                        return <AboutPage />;
+                    case 'projects':
+                        return <ProjectsPage onNavigate={handleNavigate} setProjectId={setCurrentProjectId} />;
+                    case 'projectDetail':
+                        return <ProjectDetailPage projectId={currentProjectId} onNavigate={handleNavigate} />;
+                    case 'blog':
+                        return <BlogPage onNavigate={handleNavigate} setPostId={setCurrentPostId} />;
+                    case 'resume':
+                        return <ResumePage />;
+                    case 'contact':
+                        return <ContactPage />;
+                    default:
+                        return <HomePage onNavigate={handleNavigate} />;
+                }
+            };
 
-          return (
-            <div className="font-['Nunito_Sans'] bg-zinc-50 text-zinc-900 min-h-screen flex flex-col">
-              <Navbar onNavigate={handleNavigate} />
-              <main className="flex-grow">
-                {renderPage()}
-              </main>
-              <Footer />
-            </div>
-          );
+            return (
+                <div className="font-['Outfit'] bg-zinc-950 text-white min-h-screen flex flex-col">
+                    <Navbar onNavigate={handleNavigate} />
+                    <main className="flex-grow">
+                        {renderPage()}
+                    </main>
+                    <Footer />
+                </div>
+            );
         };
 
-        // Mount the React App to the root div
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
+
 </html>
