@@ -772,7 +772,9 @@ const MyPureComponent = memo(({ data }) => {
                                     <p className="text-xl md:text-2xl text-zinc-300 max-w-xl mx-auto md:mx-0 animate-fade-in delay-500">
                                         Building digital experiences that perform.
                                     </p>
-                                    <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6 mt-8 animate-fade-in-up delay-1000">
+                                    <div style={{
+                                        flexDirection: 'row'
+                                    }} className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6 mt-8 animate-fade-in-up delay-1000">
                                         <button
                                             onClick={() => onNavigate('projects')}
                                             className="px-6 py-2 w-32 h-10 md:w-40 md:h-12 rounded-none border border-white text-white text-sm md:text-base font-semibold uppercase flex items-center justify-center bg-transparent hover:bg-white hover:text-zinc-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
@@ -781,6 +783,10 @@ const MyPureComponent = memo(({ data }) => {
                                         </button>
                                         <button
                                             onClick={() => onNavigate('contact')}
+                                            style={{
+                                                marginTop: '0px',
+                                                marginLeft: '20px',
+                                            }}
                                             className="px-6 py-2 w-32 h-10 md:w-40 md:h-12 rounded-none border border-white text-white text-sm md:text-base font-semibold uppercase flex items-center justify-center bg-transparent hover:bg-white hover:text-zinc-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                                         >Get in touch</button>
                                     </div>
